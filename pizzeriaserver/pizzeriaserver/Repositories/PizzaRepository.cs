@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using pizzeriaserver.Application.Models;
 using pizzeriaserver.Data;
-using pizzeriaserver.Models;
 
 namespace pizzeriaserver.Repositories
 {

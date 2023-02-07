@@ -1,10 +1,10 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using pizzeriaserver.Models;
+using pizzeriaserver.Application.Models;
 using pizzeriaserver.Repositories;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace pizzeriaserver.Commands
+namespace pizzeriaserver.Application.Commands
 {
     public class CreatePizzaCommand : IRequest<Pizza>
     {
@@ -24,7 +24,7 @@ namespace pizzeriaserver.Commands
 
             public async Task<Pizza> Handle(CreatePizzaCommand command, CancellationToken cancellation)
             {
-                var pizza = new Pizza() 
+                var pizza = new Pizza()
                 {
                     Name = command.Name,
                     Description = command.Description,

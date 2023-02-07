@@ -1,8 +1,8 @@
 ﻿using MediatR;
-using pizzeriaserver.Models;
+using pizzeriaserver.Application.Models;
 using pizzeriaserver.Repositories;
 
-namespace pizzeriaserver.Queries
+namespace pizzeriaserver.Application.Queries
 {
     public class GetAllPizzasQuery : IRequest<List<Pizza>>
     {

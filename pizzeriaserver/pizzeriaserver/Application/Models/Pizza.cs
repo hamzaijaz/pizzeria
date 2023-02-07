@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace pizzeriaserver.Models
+namespace pizzeriaserver.Application.Models
 {
     public class Pizza
     {

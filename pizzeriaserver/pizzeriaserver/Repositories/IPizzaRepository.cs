@@ -1,4 +1,4 @@
-﻿using pizzeriaserver.Models;
+﻿using pizzeriaserver.Application.Models;
 
 namespace pizzeriaserver.Repositories
 {
