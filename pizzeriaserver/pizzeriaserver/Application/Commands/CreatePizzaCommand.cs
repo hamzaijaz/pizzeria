@@ -6,14 +6,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace pizzeriaserver.Application.Commands
 {
-    public class CreatePizzaCommand : IRequest<Pizza>
+    public class CreatePizzaCommand : IRequest<PizzaDto>
     {
         public string Name { get; set; }
         public string Description { get; set; }
         public decimal Price { get; set; }
         public string Location { get; set; }
 
-        public class CreatePizzaCommandHandler : IRequestHandler<CreatePizzaCommand, Pizza>
+        public class CreatePizzaCommandHandler : IRequestHandler<CreatePizzaCommand, PizzaDto>
         {
             private readonly IPizzaRepository _pizzaRepository;
 
@@ -22,9 +22,9 @@ namespace pizzeriaserver.Application.Commands
                 _pizzaRepository = pizzaRepository;
             }
 
-            public async Task<Pizza> Handle(CreatePizzaCommand command, CancellationToken cancellation)
+            public async Task<PizzaDto> Handle(CreatePizzaCommand command, CancellationToken cancellation)
             {
-                var pizza = new Pizza()
+                var pizza = new PizzaDto()
                 {
                     Name = command.Name,
                     Description = command.Description,

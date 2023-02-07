@@ -20,7 +20,7 @@ namespace pizzeriaserver.Controllers
 
         [HttpGet]
         [Route("all")]
-        public async Task<List<Pizza>> GetAllAsync()
+        public async Task<List<PizzaDto>> GetAllAsync()
         {
             var pizzas = await mediator.Send(new GetAllPizzasQuery());
             return pizzas;
@@ -28,14 +28,14 @@ namespace pizzeriaserver.Controllers
 
         [HttpGet]
         [Route("{id}")]
-        public async Task<Pizza> GetById(int id)
+        public async Task<PizzaDto> GetById(int id)
         {
             var resp = await mediator.Send(new GetPizzaByIdQuery() { Id = id });
             return resp;
         }
 
         [HttpPost]
-        public async Task<Pizza> AddNewPizza(Pizza pizza) 
+        public async Task<PizzaDto> AddNewPizza(PizzaDto pizza) 
         {
             var resp = await mediator.Send(new CreatePizzaCommand() 
             { 

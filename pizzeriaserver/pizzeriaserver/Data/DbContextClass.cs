@@ -13,6 +13,6 @@ namespace pizzeriaserver.Data
         //    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
         //}
 
-        public DbSet<Pizza> Pizzas { get; set; }
+        public DbSet<PizzaDto> Pizzas { get; set; }
     }
 }

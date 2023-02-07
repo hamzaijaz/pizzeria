@@ -4,11 +4,11 @@ using pizzeriaserver.Repositories;
 
 namespace pizzeriaserver.Application.Queries
 {
-    public class GetPizzaByIdQuery : IRequest<Pizza>
+    public class GetPizzaByIdQuery : IRequest<PizzaDto>
     {
         public int Id { get; set; }
 
-        public class GetPizzaByIdQueryHandler : IRequestHandler<GetPizzaByIdQuery, Pizza>
+        public class GetPizzaByIdQueryHandler : IRequestHandler<GetPizzaByIdQuery, PizzaDto>
         {
             private readonly IPizzaRepository _pizzaRepository;
 
@@ -17,7 +17,7 @@ namespace pizzeriaserver.Application.Queries
                 _pizzaRepository = pizzaRepository;
             }
 
-            public async Task<Pizza> Handle(GetPizzaByIdQuery request, CancellationToken cancellationToken)
+            public async Task<PizzaDto> Handle(GetPizzaByIdQuery request, CancellationToken cancellationToken)
             {
                 return await _pizzaRepository.GetPizzaByIdAsync(request.Id);
             }

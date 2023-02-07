@@ -13,7 +13,7 @@ namespace pizzeriaserver.Repositories
             _dbContext = dbContext;
         }
 
-        public async Task<Pizza> AddPizzaAsync(Pizza pizzaDetails)
+        public async Task<PizzaDto> AddPizzaAsync(PizzaDto pizzaDetails)
         {
             var result = _dbContext.Pizzas.Add(pizzaDetails);
             await _dbContext.SaveChangesAsync();
@@ -27,17 +27,17 @@ namespace pizzeriaserver.Repositories
             return await _dbContext.SaveChangesAsync();
         }
 
-        public async Task<Pizza> GetPizzaByIdAsync(int Id)
+        public async Task<PizzaDto> GetPizzaByIdAsync(int Id)
         {
             return await _dbContext.Pizzas.Where(x => x.Id == Id).FirstOrDefaultAsync();
         }
 
-        public async Task<List<Pizza>> GetAllPizzasAsync()
+        public async Task<List<PizzaDto>> GetAllPizzasAsync()
         {
             return await _dbContext.Pizzas.ToListAsync();
         }
 
-        public async Task<int> UpdatePizzaAsync(Pizza pizzaDetails)
+        public async Task<int> UpdatePizzaAsync(PizzaDto pizzaDetails)
         {
             _dbContext.Pizzas.Update(pizzaDetails);
             return await _dbContext.SaveChangesAsync();

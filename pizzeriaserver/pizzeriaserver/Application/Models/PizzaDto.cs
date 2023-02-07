@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace pizzeriaserver.Application.Models
 {
-    public class Pizza
+    public class PizzaDto
     {
         public int Id { get; set; }
         public string Name { get; set; }
