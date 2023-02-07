@@ -1,4 +1,5 @@
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using pizzeriaserver.Data;
 using pizzeriaserver.Repositories;
 using System.Reflection;
@@ -7,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
-builder.Services.AddDbContext <DbContextClass>();
+builder.Services.AddDbContext <DbContextClass>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddScoped<IPizzaRepository, PizzaRepository>();
 
 builder.Services.AddControllers();
