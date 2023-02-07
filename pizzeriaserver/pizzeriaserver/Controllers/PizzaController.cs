@@ -27,10 +27,11 @@ namespace pizzeriaserver.Controllers
         }
 
         [HttpGet]
-        [Route("one")]
-        public IActionResult GetById(int id)
+        [Route("{id}")]
+        public async Task<Pizza> GetById(int id)
         {
-            return Ok(new Pizza() { Id = id });
+            var resp = await mediator.Send(new GetPizzaByIdQuery() { Id = id });
+            return resp;
         }
 
         [HttpPost]
