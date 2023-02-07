@@ -1,6 +1,14 @@
+using MediatR;
+using pizzeriaserver.Data;
+using pizzeriaserver.Repositories;
+using System.Reflection;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
+builder.Services.AddDbContext <DbContextClass>();
+builder.Services.AddScoped<IPizzaRepository, PizzaRepository>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
