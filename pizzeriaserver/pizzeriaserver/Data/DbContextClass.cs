@@ -14,5 +14,6 @@ namespace pizzeriaserver.Data
         //}
 
         public DbSet<PizzaDto> Pizzas { get; set; }
+        public DbSet<ToppingDto> Toppings { get; set; }
     }
 }
