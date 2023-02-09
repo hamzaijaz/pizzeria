@@ -45,7 +45,9 @@ namespace pizzeriaserver.Middleware
             {
                 context.Response.ContentType = "application/json";
                 context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                var result = SerializeObject(new[] { ex.Errors });
+
+                var ers = new { errors = new[] { ex.Errors } };
+                var result = SerializeObject(ers);
                 await context.Response.WriteAsync(result);
             }
         }
