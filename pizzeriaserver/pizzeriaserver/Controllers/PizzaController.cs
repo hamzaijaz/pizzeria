@@ -1,8 +1,7 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using pizzeriaserver.Application.Models;
 using pizzeriaserver.Application.Commands;
+using pizzeriaserver.Application.Models;
 using pizzeriaserver.Application.Queries;
 
 namespace pizzeriaserver.Controllers
