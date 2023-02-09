@@ -35,7 +35,7 @@ namespace pizzeriaserver.Repositories
             var pizzaToDelete = await _dbContext.Pizzas.Where(x => x.Id == id).FirstOrDefaultAsync();
             if (pizzaToDelete == null)
             {
-                throw new NotFoundException(nameof(Pizza), pizzaToDelete);
+                throw new NotFoundException(nameof(Pizza), id);
             }
 
             _dbContext.Pizzas.Remove(pizzaToDelete);
