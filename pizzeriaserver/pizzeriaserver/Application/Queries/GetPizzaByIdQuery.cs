@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Ardalis.GuardClauses;
+using MediatR;
 using pizzeriaserver.Application.Models;
 using pizzeriaserver.Repositories;
 
@@ -14,6 +15,7 @@ namespace pizzeriaserver.Application.Queries
 
             public GetPizzaByIdQueryHandler(IPizzaRepository pizzaRepository)
             {
+                Guard.Against.Null(pizzaRepository, nameof(pizzaRepository));
                 _pizzaRepository = pizzaRepository;
             }
 

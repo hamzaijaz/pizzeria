@@ -1,9 +1,10 @@
-﻿using AutoMapper;
+﻿using Ardalis.GuardClauses;
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using pizzeriaserver.Application.Common.Exceptions;
 using pizzeriaserver.Application.Models;
 using pizzeriaserver.Data;
 using pizzeriaserver.Data.Entities;
+using NotFoundException = pizzeriaserver.Application.Common.Exceptions.NotFoundException;
 
 namespace pizzeriaserver.Repositories
 {
@@ -14,6 +15,9 @@ namespace pizzeriaserver.Repositories
 
         public PizzaRepository(ApplicationDbContext dbContext, IMapper mapper)
         {
+            Guard.Against.Null(dbContext, nameof(dbContext));
+            Guard.Against.Null(mapper, nameof(mapper));
+
             _dbContext = dbContext;
             _mapper = mapper;
         }

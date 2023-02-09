@@ -1,4 +1,7 @@
-﻿using MediatR;
+﻿using Ardalis.GuardClauses;
+using AutoMapper;
+using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using pizzeriaserver.Application.Models;
 using pizzeriaserver.Repositories;
@@ -19,6 +22,7 @@ namespace pizzeriaserver.Application.Commands
 
             public CreatePizzaCommandHandler(IPizzaRepository pizzaRepository)
             {
+                Guard.Against.Null(pizzaRepository, nameof(pizzaRepository));
                 _pizzaRepository = pizzaRepository;
             }
 
