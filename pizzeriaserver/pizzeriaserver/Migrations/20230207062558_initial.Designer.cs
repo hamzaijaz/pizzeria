@@ -10,7 +10,7 @@ using pizzeriaserver.Data;
 
 namespace pizzeriaserver.Migrations
 {
-    [DbContext(typeof(DbContextClass))]
+    [DbContext(typeof(ApplicationDbContext))]
     [Migration("20230207062558_initial")]
     partial class initial
     {

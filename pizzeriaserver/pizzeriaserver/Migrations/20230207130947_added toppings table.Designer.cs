@@ -11,7 +11,7 @@ using pizzeriaserver.Data;
 
 namespace pizzeriaserver.Migrations
 {
-    [DbContext(typeof(DbContextClass))]
+    [DbContext(typeof(ApplicationDbContext))]
     [Migration("20230207130947_added toppings table")]
     partial class addedtoppingstable
     {

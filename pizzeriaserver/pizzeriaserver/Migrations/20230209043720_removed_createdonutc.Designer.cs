@@ -12,8 +12,8 @@ using pizzeriaserver.Data;
 namespace pizzeriaserver.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230209040348_topping_derived_from_entity_class")]
-    partial class toppingderivedfromentityclass
+    [Migration("20230209043720_removed_createdonutc")]
+    partial class removedcreatedonutc
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -32,9 +32,6 @@ namespace pizzeriaserver.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("CreatedOnUtc")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -66,9 +63,6 @@ namespace pizzeriaserver.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("CreatedOnUtc")
-                        .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("ModifiedOnUtc")
                         .HasColumnType("datetime2");

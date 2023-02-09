@@ -9,10 +9,10 @@ namespace pizzeriaserver.Repositories
 {
     public class PizzaRepository : IPizzaRepository
     {
-        private readonly DbContextClass _dbContext;
+        private readonly ApplicationDbContext _dbContext;
         private readonly IMapper _mapper;
 
-        public PizzaRepository(DbContextClass dbContext, IMapper mapper)
+        public PizzaRepository(ApplicationDbContext dbContext, IMapper mapper)
         {
             _dbContext = dbContext;
             _mapper = mapper;

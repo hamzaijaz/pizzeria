@@ -10,7 +10,7 @@ using pizzeriaserver.Data;
 
 namespace pizzeriaserver.Migrations
 {
-    [DbContext(typeof(DbContextClass))]
+    [DbContext(typeof(ApplicationDbContext))]
     partial class DbContextClassModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
@@ -29,9 +29,6 @@ namespace pizzeriaserver.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("CreatedOnUtc")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -63,9 +60,6 @@ namespace pizzeriaserver.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("CreatedOnUtc")
-                        .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("ModifiedOnUtc")
                         .HasColumnType("datetime2");

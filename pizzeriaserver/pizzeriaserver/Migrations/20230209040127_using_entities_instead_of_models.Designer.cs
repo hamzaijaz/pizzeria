@@ -11,7 +11,7 @@ using pizzeriaserver.Data;
 
 namespace pizzeriaserver.Migrations
 {
-    [DbContext(typeof(DbContextClass))]
+    [DbContext(typeof(ApplicationDbContext))]
     [Migration("20230209040127_using_entities_instead_of_models")]
     partial class usingentitiesinsteadofmodels
     {
