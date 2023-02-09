@@ -7,7 +7,7 @@ namespace pizzeriaserver.Repositories
         public Task<List<PizzaDto>> GetAllPizzasAsync();
         public Task<PizzaDto> GetPizzaByIdAsync(int Id);
         public Task<PizzaDto> AddPizzaAsync(PizzaDto studentDetails);
-        public Task<int> UpdatePizzaAsync(PizzaDto studentDetails);
+        public Task<PizzaDto> UpdatePizzaAsync(PizzaDto studentDetails);
         public Task<int> DeletePizzaAsync(int Id);
     }
 }

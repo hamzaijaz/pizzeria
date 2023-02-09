@@ -1,46 +1,73 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
+using pizzeriaserver.Application.Common.Exceptions;
 using pizzeriaserver.Application.Models;
 using pizzeriaserver.Data;
+using pizzeriaserver.Data.Entities;
 
 namespace pizzeriaserver.Repositories
 {
     public class PizzaRepository : IPizzaRepository
     {
         private readonly DbContextClass _dbContext;
+        private readonly IMapper _mapper;
 
-        public PizzaRepository(DbContextClass dbContext)
+        public PizzaRepository(DbContextClass dbContext, IMapper mapper)
         {
             _dbContext = dbContext;
+            _mapper = mapper;
         }
 
         public async Task<PizzaDto> AddPizzaAsync(PizzaDto pizzaDetails)
         {
-            var result = _dbContext.Pizzas.Add(pizzaDetails);
+            var pizza = _mapper.Map<Pizza>(pizzaDetails);
+            var result = _dbContext.Pizzas.Add(pizza);
             await _dbContext.SaveChangesAsync();
-            return result.Entity;
+            return _mapper.Map<PizzaDto>(result);
         }
 
-        public async Task<int> DeletePizzaAsync(int Id)
+        public async Task<int> DeletePizzaAsync(int id)
         {
-            var filteredData = _dbContext.Pizzas.Where(x => x.Id == Id).FirstOrDefault();
+            var filteredData = _dbContext.Pizzas.Where(x => x.Id == id).FirstOrDefault();
             _dbContext.Pizzas.Remove(filteredData);
             return await _dbContext.SaveChangesAsync();
         }
 
-        public async Task<PizzaDto> GetPizzaByIdAsync(int Id)
+        public async Task<PizzaDto> GetPizzaByIdAsync(int id)
         {
-            return await _dbContext.Pizzas.Where(x => x.Id == Id).FirstOrDefaultAsync();
+            var pizza = await _dbContext.Pizzas.Where(x => x.Id == id).FirstOrDefaultAsync();
+
+            if (pizza == null)
+            {
+                throw new NotFoundException(nameof(Pizza), id);
+            }
+
+            return _mapper.Map<PizzaDto>(pizza);
         }
 
         public async Task<List<PizzaDto>> GetAllPizzasAsync()
         {
-            return await _dbContext.Pizzas.ToListAsync();
+            var pizzas = await _dbContext.Pizzas.AsNoTracking().ToListAsync();
+            var response = pizzas.Select(pizza => _mapper.Map<PizzaDto>(pizza)).ToList();
+            return response;
         }
 
-        public async Task<int> UpdatePizzaAsync(PizzaDto pizzaDetails)
+        public async Task<PizzaDto> UpdatePizzaAsync(PizzaDto pizzaDetails)
         {
-            _dbContext.Pizzas.Update(pizzaDetails);
-            return await _dbContext.SaveChangesAsync();
+            var pizzaToUpdate = await _dbContext.Pizzas.Where(p => p.Id == pizzaDetails.Id).FirstOrDefaultAsync();
+            if(pizzaToUpdate == null)
+            {
+                throw new NotFoundException(nameof(Pizza), pizzaDetails.Id);
+            }
+
+            pizzaToUpdate.Name= pizzaDetails.Name;
+            pizzaToUpdate.Description= pizzaDetails.Description;
+            pizzaToUpdate.Location= pizzaDetails.Location;
+            pizzaToUpdate.Price= pizzaDetails.Price;
+
+            await _dbContext.SaveChangesAsync();
+
+            return _mapper.Map<PizzaDto>(pizzaToUpdate);
         }
     }
 }

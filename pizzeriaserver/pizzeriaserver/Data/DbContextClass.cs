@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using pizzeriaserver.Application.Models;
+using pizzeriaserver.Data.Entities;
 
 namespace pizzeriaserver.Data
 {
@@ -13,7 +13,7 @@ namespace pizzeriaserver.Data
         //    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
         //}
 
-        public DbSet<PizzaDto> Pizzas { get; set; }
-        public DbSet<ToppingDto> Toppings { get; set; }
+        public DbSet<Pizza> Pizzas { get; set; }
+        public DbSet<Topping> Toppings { get; set; }
     }
 }

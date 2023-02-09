@@ -47,5 +47,19 @@ namespace pizzeriaserver.Controllers
 
             return resp;
         }
+
+        //[HttpPut]
+        //public async Task<PizzaDto> UpdatePizza(PizzaDto pizza)
+        //{
+        //    var resp = await mediator.Send(new UpdatePizzaCommand()
+        //    {
+        //        Name = pizza.Name,
+        //        Description = pizza.Description,
+        //        Location = pizza.Location,
+        //        Price = pizza.Price
+        //    });
+
+        //    return resp;
+        //}
     }
 }
