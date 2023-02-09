@@ -32,9 +32,15 @@ namespace pizzeriaserver.Repositories
 
         public async Task<int> DeletePizzaAsync(int id)
         {
-            var filteredData = _dbContext.Pizzas.Where(x => x.Id == id).FirstOrDefault();
-            _dbContext.Pizzas.Remove(filteredData);
-            return await _dbContext.SaveChangesAsync();
+            var pizzaToDelete = await _dbContext.Pizzas.Where(x => x.Id == id).FirstOrDefaultAsync();
+            if (pizzaToDelete == null)
+            {
+                throw new NotFoundException(nameof(Pizza), pizzaToDelete);
+            }
+
+            _dbContext.Pizzas.Remove(pizzaToDelete);
+            await _dbContext.SaveChangesAsync();
+            return pizzaToDelete.Id;
         }
 
         public async Task<PizzaDto> GetPizzaByIdAsync(int id)
