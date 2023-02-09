@@ -1,14 +1,13 @@
+using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using pizzeriaserver.Data;
-using pizzeriaserver.Repositories;
-using System.Reflection;
-using AutoMapper;
+using pizzeriaserver.Application.Common.Behaviors;
 using pizzeriaserver.Application.Common.Interfaces;
+using pizzeriaserver.Data;
 using pizzeriaserver.Data.Services;
 using pizzeriaserver.Middleware;
-using pizzeriaserver.Application.Common.Behaviors;
-using FluentValidation.AspNetCore;
+using pizzeriaserver.Repositories;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
