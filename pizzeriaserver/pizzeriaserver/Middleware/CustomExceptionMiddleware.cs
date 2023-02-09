@@ -24,28 +24,30 @@ namespace pizzeriaserver.Middleware
             {
                 context.Response.ContentType = "application/json";
                 context.Response.StatusCode = (int)HttpStatusCode.NotFound;
-                var result = SerializeObject(new[] { ex.Message });
+                var ers = new { errors = new[] { ex.Message } };
+                var result = SerializeObject(ers);
                 await context.Response.WriteAsync(result);
             }
             catch (BadRequestException ex)
             {
                 context.Response.ContentType = "application/json";
                 context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                var result = SerializeObject(new[] { ex.Message });
+                var ers = new { errors = new[] { ex.Message } };
+                var result = SerializeObject(ers);
                 await context.Response.WriteAsync(result);
             }
             catch (DuplicateItemException ex)
             {
                 context.Response.ContentType = "application/json";
                 context.Response.StatusCode = (int)HttpStatusCode.Conflict;
-                var result = SerializeObject(new[] { ex.Message });
+                var ers = new { errors = new[] { ex.Message } };
+                var result = SerializeObject(ers);
                 await context.Response.WriteAsync(result);
             }
             catch (ValidationException ex)
             {
                 context.Response.ContentType = "application/json";
                 context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
-
                 var ers = new { errors = new[] { ex.Errors } };
                 var result = SerializeObject(ers);
                 await context.Response.WriteAsync(result);
