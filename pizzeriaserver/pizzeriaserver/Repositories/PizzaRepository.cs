@@ -23,7 +23,7 @@ namespace pizzeriaserver.Repositories
             var pizza = _mapper.Map<Pizza>(pizzaDetails);
             var result = _dbContext.Pizzas.Add(pizza);
             await _dbContext.SaveChangesAsync();
-            return _mapper.Map<PizzaDto>(result);
+            return _mapper.Map<PizzaDto>(result.Entity);
         }
 
         public async Task<int> DeletePizzaAsync(int id)
