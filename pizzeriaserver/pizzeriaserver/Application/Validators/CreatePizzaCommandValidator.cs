@@ -18,7 +18,7 @@ namespace pizzeriaserver.Application.Validators
             RuleFor(v => v.Price)
                 .NotNull().WithMessage("Price must not be null")
                 .NotEmpty().WithMessage("Price must not be empty")
-                .LessThan(0).WithMessage("Price must be greater than or equal to zero");
+                .GreaterThanOrEqualTo(0).WithMessage("Price must be greater than or equal to zero");
 
             RuleFor(v => v.Location)
                 .NotNull().WithMessage("Pizza location must not be null")
