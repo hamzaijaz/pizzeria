@@ -1,11 +1,7 @@
 ﻿using Ardalis.GuardClauses;
-using AutoMapper;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using pizzeriaserver.Application.Models;
 using pizzeriaserver.Repositories;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace pizzeriaserver.Application.Commands
 {
