@@ -6,6 +6,7 @@ using System.Reflection;
 using AutoMapper;
 using pizzeriaserver.Application.Common.Interfaces;
 using pizzeriaserver.Data.Services;
+using pizzeriaserver.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,6 +35,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseMiddleware<CustomExceptionMiddleware>();
 
 app.MapControllers();
 
