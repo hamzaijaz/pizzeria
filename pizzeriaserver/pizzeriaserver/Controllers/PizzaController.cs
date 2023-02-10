@@ -10,18 +10,18 @@ namespace pizzeriaserver.Controllers
     [ApiController]
     public class PizzaController : ControllerBase
     {
-        private readonly IMediator mediator;
+        private readonly IMediator _mediator;
 
         public PizzaController(IMediator mediator)
         {
-            this.mediator = mediator;
+            this._mediator = mediator;
         }
 
         [HttpGet]
         [Route("all")]
         public async Task<List<PizzaDto>> GetAllAsync()
         {
-            var pizzas = await mediator.Send(new GetAllPizzasQuery());
+            var pizzas = await _mediator.Send(new GetAllPizzasQuery());
             return pizzas;
         }
 
@@ -29,14 +29,14 @@ namespace pizzeriaserver.Controllers
         [Route("{id}")]
         public async Task<PizzaDto> GetById(int id)
         {
-            var resp = await mediator.Send(new GetPizzaByIdQuery() { Id = id });
+            var resp = await _mediator.Send(new GetPizzaByIdQuery() { Id = id });
             return resp;
         }
 
         [HttpPost]
         public async Task<PizzaDto> AddNewPizza(PizzaDto pizza) 
         {
-            var resp = await mediator.Send(new CreatePizzaCommand() 
+            var resp = await _mediator.Send(new CreatePizzaCommand() 
             { 
                 Name = pizza.Name,
                 Description = pizza.Description,
@@ -50,7 +50,7 @@ namespace pizzeriaserver.Controllers
         [HttpPut]
         public async Task<PizzaDto> UpdatePizza(PizzaDto pizza)
         {
-            var resp = await mediator.Send(new UpdatePizzaCommand()
+            var resp = await _mediator.Send(new UpdatePizzaCommand()
             {
                 Id = pizza.Id,
                 Name = pizza.Name,
@@ -65,7 +65,7 @@ namespace pizzeriaserver.Controllers
         [HttpDelete]
         public async Task<int> DeletePizza(int pizzaId)
         {
-            var resp = await mediator.Send(new DeletePizzaCommand()
+            var resp = await _mediator.Send(new DeletePizzaCommand()
             {
                 Id = pizzaId
             });

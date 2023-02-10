@@ -21,6 +21,7 @@ builder.Services.AddTransient<IDateTime, DateTimeService>();
 builder.Services.AddDbContext <ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddScoped<IPizzaRepository, PizzaRepository>();
 builder.Services.AddScoped<IToppingRepository, ToppingRepository>();
+builder.Services.AddScoped<IAdminRepository, AdminRepository>();
 
 builder.Services.AddControllers()
     .AddFluentValidation(options =>

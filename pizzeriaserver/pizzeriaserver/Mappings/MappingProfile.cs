@@ -20,6 +20,12 @@ namespace pizzeriaserver.Mappings
                 .ForMember(x => x.Name, s => s.MapFrom(source => source.Name))
                 .ForMember(x => x.Id, s => s.MapFrom(source => source.Id))
                 .ReverseMap();
+
+            CreateMap<LocationDto, Location>()
+                .ForMember(x => x.Name, s => s.MapFrom(source => source.Name))
+                .ForMember(x => x.Id, s => s.MapFrom(source => source.Id))
+                .ForMember(x => x.Address, s => s.MapFrom(source => source.Address))
+                .ReverseMap();
         }
     }
 }

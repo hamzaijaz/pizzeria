@@ -10,18 +10,18 @@ namespace pizzeriaserver.Controllers
     [ApiController]
     public class ToppingController : ControllerBase
     {
-        private readonly IMediator mediator;
+        private readonly IMediator _mediator;
 
         public ToppingController(IMediator mediator)
         {
-            this.mediator = mediator;
+            _mediator = mediator;
         }
 
         [HttpGet]
         [Route("all")]
         public async Task<List<ToppingDto>> GetAllAsync()
         {
-            var toppings = await mediator.Send(new GetAllToppingsQuery());
+            var toppings = await _mediator.Send(new GetAllToppingsQuery());
             return toppings;
         }
 
@@ -29,14 +29,14 @@ namespace pizzeriaserver.Controllers
         [Route("{id}")]
         public async Task<ToppingDto> GetById(int id)
         {
-            var resp = await mediator.Send(new GetToppingByIdQuery() { Id = id });
+            var resp = await _mediator.Send(new GetToppingByIdQuery() { Id = id });
             return resp;
         }
 
         [HttpPost]
         public async Task<ToppingDto> AddNewTopping(ToppingDto topping)
         {
-            var resp = await mediator.Send(new CreateToppingCommand()
+            var resp = await _mediator.Send(new CreateToppingCommand()
             {
                 Name = topping.Name
             });
@@ -47,7 +47,7 @@ namespace pizzeriaserver.Controllers
         [HttpPut]
         public async Task<ToppingDto> UpdateTopping(ToppingDto topping)
         {
-            var resp = await mediator.Send(new UpdateToppingCommand()
+            var resp = await _mediator.Send(new UpdateToppingCommand()
             {
                 Id = topping.Id,
                 Name = topping.Name
@@ -59,7 +59,7 @@ namespace pizzeriaserver.Controllers
         [HttpDelete]
         public async Task<int> DeleteTopping(int toppingId)
         {
-            var resp = await mediator.Send(new DeleteToppingCommand()
+            var resp = await _mediator.Send(new DeleteToppingCommand()
             {
                 Id = toppingId
             });
