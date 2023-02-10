@@ -1,10 +1,19 @@
 import React from "react";
+import Button from "react-bootstrap/Button";
+import { useHistory } from 'react-router-dom';
 
 function Home() {
+
+    const history = useHistory();
+
+    const handleClick = () => {
+        history.push('/neworder');
+    }
+
   return (
     <div className="container-fluid myheader">
       <div className="row">
-        <div className="jumbotron col-10 offset-1 digitalcentre">
+        <div className="jumbotron col-10 offset-1 digitalcentre mt-2">
           <div className="custom-background">
             <h1>Welcome to Pizzeria</h1>
             <p>You can order your pizza here</p>
@@ -12,8 +21,12 @@ function Home() {
         </div>
       </div>
 
-      <div className="mydiv">
+      <div className="mydiv digitalcentre">
         <p>Click 'Start New Order' button to start ordering</p>
+
+        <Button variant="primary" onClick={handleClick}>
+        Start New Order
+      </Button>
       </div>
     </div>
   );
