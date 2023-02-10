@@ -8,11 +8,35 @@ using pizzeriaserver.Data.Services;
 using pizzeriaserver.Middleware;
 using pizzeriaserver.Repositories;
 using System.Reflection;
+using Microsoft.AspNetCore.Cors;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 //builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+
+//builder.Services.AddCors(options =>
+//{
+//    options.AddPolicy("AllowAllOrigins", 
+//        builder =>
+//        {
+//            builder
+//            .AllowAnyOrigin()
+//            .AllowAnyHeader()
+//            .AllowAnyMethod();
+//        });
+//});
+
+//builder.Services.AddCors(options =>
+//{
+//    options.AddPolicy("CorsPolicy",
+//        builder => builder.WithOrigins("http://localhost:3000/")
+//        .AllowAnyMethod()
+//        .AllowAnyHeader()
+//        .AllowCredentials());
+//});
+
+
 
 builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
 builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
@@ -38,6 +62,11 @@ builder.Services.AddControllers()
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddCors(p => p.AddPolicy("corsapp", builder =>
+{
+    builder.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
+}));
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -46,6 +75,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors("corsapp");
 
 app.UseHttpsRedirection();
 
