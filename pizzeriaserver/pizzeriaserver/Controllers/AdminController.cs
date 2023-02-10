@@ -18,7 +18,7 @@ namespace pizzeriaserver.Controllers
         }
 
         [HttpGet]
-        [Route("all")]
+        [Route("location/all")]
         public async Task<List<LocationDto>> GetAllAsync()
         {
             var locations = await _mediator.Send(new GetAllLocationsQuery());
@@ -26,6 +26,7 @@ namespace pizzeriaserver.Controllers
         }
 
         [HttpPost]
+        [Route("location")]
         public async Task<LocationDto> AddNewLocation(LocationDto location)
         {
             var resp = await _mediator.Send(new CreateLocationCommand()
@@ -38,6 +39,7 @@ namespace pizzeriaserver.Controllers
         }
 
         [HttpPut]
+        [Route("location")]
         public async Task<LocationDto> UpdateLocation(LocationDto location)
         {
             var resp = await _mediator.Send(new UpdateLocationCommand()
@@ -51,6 +53,7 @@ namespace pizzeriaserver.Controllers
         }
 
         [HttpDelete]
+        [Route("location")]
         public async Task<int> DeleteLocation(int locationId)
         {
             var resp = await _mediator.Send(new DeleteLocationCommand()
