@@ -6,7 +6,7 @@ function Home() {
 
     const history = useHistory();
 
-    const handleClick = () => {
+    const startNewOrder = () => {
         history.push('/neworder');
     }
 
@@ -24,7 +24,7 @@ function Home() {
       <div className="mydiv digitalcentre">
         <p>Click 'Start New Order' button to start ordering</p>
 
-        <Button variant="primary" onClick={handleClick}>
+        <Button variant="primary" onClick={startNewOrder}>
         Start New Order
       </Button>
       </div>

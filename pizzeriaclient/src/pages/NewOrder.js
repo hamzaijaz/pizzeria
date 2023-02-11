@@ -1,8 +1,14 @@
 import React, { useState, useEffect } from "react";
 import authorisedClient from "../common/authorised-axios";
 import Button from "react-bootstrap/Button";
+import { useHistory } from 'react-router-dom';
 
 export const NewOrder = () => {
+  const history = useHistory();
+
+  const cancelOrder = () => {
+    history.push('/');
+  }
   const [locations, setLocations] = useState([]);
   const [noLocationsStored, setNoLocationsStored] = useState(false)
 
@@ -72,8 +78,6 @@ export const NewOrder = () => {
     setTotalCost(cost);
   }
 
-
-
   return (
     <div>
       {noLocationsStored && (
@@ -98,7 +102,7 @@ export const NewOrder = () => {
               {showPizzas && (
                 <div>
                   <p>Following pizzas are available in your selected branch. Please select your pizzas</p>
-                  <ul>
+                  <ul className="nobullets">
                     {pizzasWithCount.map((pizza, index) => (
                       <li className="mt-4" key={pizza.id}>{pizza.name} : ${pizza.price}
                         <Button className="ml-2 mr-2" onClick={() => handleMinus(index)}>-</Button>
@@ -111,22 +115,14 @@ export const NewOrder = () => {
                   <span className="ml-2">{totalCost}</span>
                 </div>
               )}
-
-
             </fieldset>
           </form>
 
-
-          {/* <select>
-            <option >Please select a location</option>
-            {locations.data.map(item => (
-              <option value={item.name}>{item.name}</option>
-            ))}
-          </select>
-
-          {locations.data[0].name}
-          {locations.data[0].address}
-          {locations.data[0].id} */}
+          <div>
+            <Button className="mb-2" variant="primary" onClick={cancelOrder}>
+              Cancel Order
+            </Button>
+          </div>
         </div>)}
     </div>);
 }

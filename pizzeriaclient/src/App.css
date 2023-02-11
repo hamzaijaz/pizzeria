@@ -32,6 +32,7 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
@@ -46,8 +47,7 @@
   text-align: center;
 }
 
-.custom-background
-{
+.custom-background {
   background-color: #6fb3b8;
 }
 
@@ -77,4 +77,16 @@
   color: white;
   text-align: center;
   border: solid 2px #388087;
+}
+
+.nobullets {
+  list-style-type: none;
+  padding: 0%;
+}
+
+.button-container-div {
+  text-align: center;
+  /* height: 40vh;
+  width: 50vw; */
+  border: 1px solid coral;
 }
