@@ -62,6 +62,24 @@ namespace pizzeriaserver.Repositories
             return response;
         }
 
+        public async Task<List<PizzaDto>> GetPizzasForLocationAsync(int locationId)
+        {
+            var pizzas = await _dbContext.Pizzas
+                .Include(p => p.PizzaLocations)
+                .Where(p => p.PizzaLocations.Any(pl => pl.LocationId == locationId))
+                .Select(pd => new PizzaDto 
+                { 
+                    Id = pd.Id, 
+                    Description = pd.Description, 
+                    Name = pd.Name, 
+                    Price = pd.PizzaLocations.FirstOrDefault(pl => pl.PizzaId == pd.Id && pl.LocationId == locationId).Price
+                })
+                .ToListAsync();
+
+            var response = pizzas.Select(pizza => _mapper.Map<PizzaDto>(pizza)).ToList();
+            return response;
+        }
+
         public async Task<PizzaDto> UpdatePizzaAsync(PizzaDto pizzaDetails)
         {
             var pizzaToUpdate = await _dbContext.Pizzas.Where(p => p.Id == pizzaDetails.Id).FirstOrDefaultAsync();

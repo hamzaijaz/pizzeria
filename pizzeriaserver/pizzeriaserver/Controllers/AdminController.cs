@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using pizzeriaserver.Application.Commands;
 using pizzeriaserver.Application.Models;
 using pizzeriaserver.Application.Queries;
+using pizzeriaserver.Controllers.Requests;
 
 namespace pizzeriaserver.Controllers
 {
@@ -40,7 +41,7 @@ namespace pizzeriaserver.Controllers
 
         [HttpPost]
         [Route("pizzalocation")]
-        public async Task<PizzaLocationDto> AddNewPizzaLocation(PizzaLocationDto pizzaLocation)
+        public async Task<PizzaLocationDto> AddNewPizzaLocation(AddNewPizzaLocationRequest pizzaLocation)
         {
             var resp = await _mediator.Send(new AddPizzaToLocationCommand()
             {

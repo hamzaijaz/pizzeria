@@ -26,6 +26,14 @@ namespace pizzeriaserver.Controllers
         }
 
         [HttpGet]
+        [Route("pizzasforlocation/{locationId}")]
+        public async Task<List<PizzaDto>> GetPizzasForLocationAsync(int locationId)
+        {
+            var pizzas = await _mediator.Send(new GetPizzasForLocationQuery() { LocationId = locationId });
+            return pizzas;
+        }
+
+        [HttpGet]
         [Route("{id}")]
         public async Task<PizzaDto> GetById(int id)
         {
