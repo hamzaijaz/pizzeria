@@ -39,13 +39,14 @@ namespace pizzeriaserver.Controllers
         }
 
         [HttpPost]
-        [Route("pizzalocation/{pizzaId}/{locationId}")]
-        public async Task<PizzaLocationDto> AddNewPizzaLocation(int pizzaId, int locationId)
+        [Route("pizzalocation")]
+        public async Task<PizzaLocationDto> AddNewPizzaLocation(PizzaLocationDto pizzaLocation)
         {
             var resp = await _mediator.Send(new AddPizzaToLocationCommand()
             {
-                PizzaId = pizzaId,
-                LocationId = locationId
+                PizzaId = pizzaLocation.PizzaId,
+                LocationId = pizzaLocation.LocationId,
+                Price = pizzaLocation.Price
             });
 
             return resp;

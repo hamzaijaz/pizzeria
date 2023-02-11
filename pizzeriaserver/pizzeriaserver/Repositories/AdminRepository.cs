@@ -65,7 +65,7 @@ namespace pizzeriaserver.Repositories
             return _mapper.Map<LocationDto>(locationToUpdate);
         }
 
-        public async Task<PizzaLocationDto> AddPizzaLocationAsync(int pizzaId, int locationId)
+        public async Task<PizzaLocationDto> AddPizzaLocationAsync(int pizzaId, int locationId, decimal price)
         {
             var pizza = await _dbContext.Pizzas.FirstOrDefaultAsync(p => p.Id == pizzaId);
             if (pizza == null)
@@ -82,7 +82,8 @@ namespace pizzeriaserver.Repositories
             var pizzaLocation = new PizzaLocation
             {
                 PizzaId = pizzaId,
-                LocationId = locationId
+                LocationId = locationId,
+                Price = price
             };
 
             var result = _dbContext.PizzaLocations.Add(pizzaLocation);

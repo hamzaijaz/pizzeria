@@ -9,6 +9,7 @@ namespace pizzeriaserver.Application.Commands
     {
         public int PizzaId { get; set; }
         public int LocationId { get; set; }
+        public decimal Price { get; set; }
 
         public class AddPizzaToLocationCommandHandler : IRequestHandler<AddPizzaToLocationCommand, PizzaLocationDto>
         {
@@ -22,7 +23,7 @@ namespace pizzeriaserver.Application.Commands
 
             public async Task<PizzaLocationDto> Handle(AddPizzaToLocationCommand command, CancellationToken cancellationToken)
             {
-                return await _adminRepository.AddPizzaLocationAsync(command.PizzaId, command.LocationId);
+                return await _adminRepository.AddPizzaLocationAsync(command.PizzaId, command.LocationId, command.Price);
             }
         }
     }
