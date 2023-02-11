@@ -40,7 +40,6 @@ namespace pizzeriaserver.Controllers
             { 
                 Name = pizza.Name,
                 Description = pizza.Description,
-                Location = pizza.Location,
                 Price = pizza.Price
             });
 
@@ -55,7 +54,6 @@ namespace pizzeriaserver.Controllers
                 Id = pizza.Id,
                 Name = pizza.Name,
                 Description = pizza.Description,
-                Location = pizza.Location,
                 Price = pizza.Price
             });
 

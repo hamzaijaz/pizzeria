@@ -11,7 +11,7 @@ namespace pizzeriaserver.Data.Entities
         public string Description { get; set; }
         [Column(TypeName = "decimal(10,2)")]
         public decimal Price { get; set; }
-        public string Location { get; set; }
         public virtual List<Topping> Toppings { get; set; }
+        public virtual List<PizzaLocation> PizzaLocations { get; set; }
     }
 }

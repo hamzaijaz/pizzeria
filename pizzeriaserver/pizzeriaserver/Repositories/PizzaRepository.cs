@@ -72,7 +72,6 @@ namespace pizzeriaserver.Repositories
 
             pizzaToUpdate.Name= pizzaDetails.Name;
             pizzaToUpdate.Description= pizzaDetails.Description;
-            pizzaToUpdate.Location= pizzaDetails.Location;
             pizzaToUpdate.Price= pizzaDetails.Price;
 
             await _dbContext.SaveChangesAsync();

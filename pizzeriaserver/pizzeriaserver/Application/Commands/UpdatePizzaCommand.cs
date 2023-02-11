@@ -34,8 +34,7 @@ namespace pizzeriaserver.Application.Commands
                     Id = command.Id,
                     Name = command.Name,
                     Description = command.Description,
-                    Price = command.Price,
-                    Location = command.Location
+                    Price = command.Price
                 };
 
                 return await _pizzaRepository.UpdatePizzaAsync(pizza);

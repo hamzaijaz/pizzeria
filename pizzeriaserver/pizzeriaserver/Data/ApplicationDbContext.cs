@@ -57,5 +57,12 @@ namespace pizzeriaserver.Data
         public DbSet<Pizza> Pizzas { get; set; }
         public DbSet<Topping> Toppings { get; set; }
         public DbSet<Location> Locations { get; set; }
+        public DbSet<PizzaLocation> PizzaLocations { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<PizzaLocation>()
+                .HasKey(pl => new { pl.PizzaId, pl.LocationId });
+        }
     }
 }
