@@ -91,7 +91,7 @@ export const NewOrder = () => {
             <fieldset>
               <label>
                 Location:
-                <select value={selectedLocation} name="location" id="location" onChange={handleLocationChange} required>
+                <select className="ml-2 stylish-dropdown" value={selectedLocation} name="location" id="location" onChange={handleLocationChange} required>
                   <option value={0}>Please select a location</option>
                   {locations.data.map(item => (
                     <option key={item.id} value={item.id}>{item.name}</option>
