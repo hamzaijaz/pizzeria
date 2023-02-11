@@ -12,6 +12,8 @@ export const NewOrder = () => {
   const [pizzasForLocation, setPizzasForLocation] = useState([]);
   const [pizzasWithCount, setPizzasWithCount] = useState([]);
 
+  const [totalCost, setTotalCost] = useState(0);
+
   const handleLocationChange = async (e) => {
     setSelectedLocation(e.target.value);
 
@@ -53,6 +55,7 @@ export const NewOrder = () => {
     var newPizzaCount = [...pizzasWithCount];
     newPizzaCount[index].count++;
     setPizzasWithCount(newPizzaCount);
+    calculateTotalCost();
   };
 
   const handleMinus = (index) => {
@@ -60,8 +63,14 @@ export const NewOrder = () => {
       var newPizzaCount = [...pizzasWithCount];
       newPizzaCount[index].count--;
       setPizzasWithCount(newPizzaCount);
+      calculateTotalCost();
     }
   };
+
+  const calculateTotalCost = () => {
+    var cost = pizzasWithCount.reduce((acc, p) => acc + (p.price * p.count), 0);
+    setTotalCost(cost);
+  }
 
 
 
@@ -97,6 +106,9 @@ export const NewOrder = () => {
                         <Button className="ml-2 mr-2" onClick={() => handlePlus(index)}>+</Button></li>
                     ))}
                   </ul>
+
+                  <label>Total price of your order is:</label>
+                  <span className="ml-2">{totalCost}</span>
                 </div>
               )}
 
