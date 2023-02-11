@@ -10,6 +10,7 @@ export const NewOrder = () => {
   const [showPizzas, setShowItem] = useState(false);
 
   const [pizzasForLocation, setPizzasForLocation] = useState([]);
+  const [pizzasWithCount, setPizzasWithCount] = useState([]);
 
   const handleLocationChange = async (e) => {
     setSelectedLocation(e.target.value);
@@ -23,11 +24,14 @@ export const NewOrder = () => {
       let response = await authorisedClient.get(
         `Pizza/pizzasforlocation/${e.target.value}`
       );
-      setPizzasForLocation(response.data);
-      var pizzasWithCount = response.data.map(pizza => ({
+
+      var pizzasWithCountTemp = response.data.map(pizza => ({
         ...pizza,
         count: 0
       }));
+
+      setPizzasWithCount(pizzasWithCountTemp);
+      setPizzasForLocation(response.data);
     }
   };
 
@@ -44,6 +48,20 @@ export const NewOrder = () => {
     }
     getAllLocations();
   }, []);
+
+  const handlePlus = (index) => {
+    var newPizzaCount = [...pizzasWithCount];
+    newPizzaCount[index].count++;
+    setPizzasWithCount(newPizzaCount);
+  };
+
+  const handleMinus = (index) => {
+    if (pizzasWithCount[index].count > 0) {
+      var newPizzaCount = [...pizzasWithCount];
+      newPizzaCount[index].count--;
+      setPizzasWithCount(newPizzaCount);
+    }
+  };
 
 
 
@@ -72,11 +90,11 @@ export const NewOrder = () => {
                 <div>
                   <p>Following pizzas are available in your selected branch. Please select your pizzas</p>
                   <ul>
-                    {pizzasForLocation.map((pizza, index) => (
+                    {pizzasWithCount.map((pizza, index) => (
                       <li className="mt-4" key={pizza.id}>{pizza.name} : ${pizza.price}
-                      <Button className="ml-2 mr-2">-</Button>
-                      <span>0</span>
-                      <Button className="ml-2 mr-2">+</Button></li>
+                        <Button className="ml-2 mr-2" onClick={() => handleMinus(index)}>-</Button>
+                        <span>{pizza.count}</span>
+                        <Button className="ml-2 mr-2" onClick={() => handlePlus(index)}>+</Button></li>
                     ))}
                   </ul>
                 </div>
