@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import authorisedClient from "../common/authorised-axios";
+import Button from "react-bootstrap/Button";
 
 export const NewOrder = () => {
   const [locations, setLocations] = useState([]);
@@ -13,18 +14,20 @@ export const NewOrder = () => {
   const handleLocationChange = async (e) => {
     setSelectedLocation(e.target.value);
 
-    if(e.target.value === "0")
-    {
+    if (e.target.value === "0") {
       setShowItem(false);
     }
 
-    else
-    {
+    else {
       setShowItem(true);
       let response = await authorisedClient.get(
         `Pizza/pizzasforlocation/${e.target.value}`
       );
-      setPizzasForLocation(response);
+      setPizzasForLocation(response.data);
+      var pizzasWithCount = response.data.map(pizza => ({
+        ...pizza,
+        count: 0
+      }));
     }
   };
 
@@ -46,12 +49,17 @@ export const NewOrder = () => {
 
   return (
     <div>
+      {noLocationsStored && (
+        <div className="alert alert-danger" role="alert">
+          There are no branches of Pizzeria restaurant in any area. Please come back later.
+        </div>
+      )}
       {locations.data && (
         <div>
           <form>
             <fieldset>
               <label>
-                Location: 
+                Location:
                 <select value={selectedLocation} name="location" id="location" onChange={handleLocationChange} required>
                   <option value={0}>Please select a location</option>
                   {locations.data.map(item => (
@@ -61,11 +69,17 @@ export const NewOrder = () => {
               </label>
 
               {showPizzas && (
-                <ul>
-                  {pizzasForLocation.data.map(pizza => (
-                    <li key={pizza.id}>{pizza.name}</li>
-                  ))}
-                </ul>
+                <div>
+                  <p>Following pizzas are available in your selected branch. Please select your pizzas</p>
+                  <ul>
+                    {pizzasForLocation.map((pizza, index) => (
+                      <li className="mt-4" key={pizza.id}>{pizza.name} : ${pizza.price}
+                      <Button className="ml-2 mr-2">-</Button>
+                      <span>0</span>
+                      <Button className="ml-2 mr-2">+</Button></li>
+                    ))}
+                  </ul>
+                </div>
               )}
 
 
