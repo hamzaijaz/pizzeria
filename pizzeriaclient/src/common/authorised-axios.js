@@ -2,7 +2,7 @@ import axios from "axios";
 
 const AuthorisedClient = () => {
   const defaultOptions = {
-    baseURL: "http://localhost:7213/api",
+    baseURL: "https://localhost:7213/api",
     method: 'get',
     headers: {
       'Content-Type': 'application/json',
