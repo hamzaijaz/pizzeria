@@ -64,5 +64,31 @@ namespace pizzeriaserver.Repositories
 
             return _mapper.Map<LocationDto>(locationToUpdate);
         }
+
+        public async Task<PizzaLocationDto> AddPizzaLocationAsync(int pizzaId, int locationId)
+        {
+            var pizza = await _dbContext.Pizzas.FirstOrDefaultAsync(p => p.Id == pizzaId);
+            if (pizza == null)
+            {
+                throw new NotFoundException(nameof(Pizza), pizzaId);
+            }
+
+            var location = await _dbContext.Locations.FirstOrDefaultAsync(l => l.Id == locationId);
+            if (location == null)
+            {
+                throw new NotFoundException(nameof(Location), locationId);
+            }
+
+            var pizzaLocation = new PizzaLocation
+            {
+                PizzaId = pizzaId,
+                LocationId = locationId
+            };
+
+            var result = _dbContext.PizzaLocations.Add(pizzaLocation);
+            await _dbContext.SaveChangesAsync();
+
+            return _mapper.Map<PizzaLocationDto>(result.Entity);
+        }
     }
 }
