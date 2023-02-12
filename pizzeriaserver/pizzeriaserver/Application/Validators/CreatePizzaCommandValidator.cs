@@ -14,10 +14,6 @@ namespace pizzeriaserver.Application.Validators
             RuleFor(v => v.Description)
                 .NotNull().WithMessage("Pizza description must not be null")
                 .NotEmpty().WithMessage("Pizza description must not be empty");
-
-            RuleFor(v => v.Location)
-                .NotNull().WithMessage("Pizza location must not be null")
-                .NotEmpty().WithMessage("Pizza location must not be empty");
         }
     }
 }
