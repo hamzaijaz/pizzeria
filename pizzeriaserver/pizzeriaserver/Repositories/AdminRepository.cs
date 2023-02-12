@@ -45,7 +45,7 @@ namespace pizzeriaserver.Repositories
 
         public async Task<List<LocationDto>> GetAllLocationsAsync()
         {
-            var locations = await _dbContext.Locations.AsNoTracking().ToListAsync();
+            var locations = await _dbContext.Locations.AsNoTracking().OrderBy(l => l.Name).ToListAsync();
             var response = locations.Select(location => _mapper.Map<LocationDto>(location)).ToList();
             return response;
         }
