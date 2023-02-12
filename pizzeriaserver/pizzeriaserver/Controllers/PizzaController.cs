@@ -35,22 +35,9 @@ namespace pizzeriaserver.Controllers
 
         [HttpGet]
         [Route("{id}")]
-        public async Task<PizzaDto> GetById(int id)
+        public async Task<PizzaDto> GetPizzaById(int id)
         {
             var resp = await _mediator.Send(new GetPizzaByIdQuery() { Id = id });
-            return resp;
-        }
-
-        [HttpPost]
-        public async Task<PizzaDto> AddNewPizza(PizzaDto pizza) 
-        {
-            var resp = await _mediator.Send(new CreatePizzaCommand() 
-            { 
-                Name = pizza.Name,
-                Description = pizza.Description,
-                Price = pizza.Price
-            });
-
             return resp;
         }
 

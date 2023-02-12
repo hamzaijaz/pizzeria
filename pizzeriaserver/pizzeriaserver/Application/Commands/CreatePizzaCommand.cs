@@ -9,7 +9,6 @@ namespace pizzeriaserver.Application.Commands
     {
         public string Name { get; set; }
         public string Description { get; set; }
-        public decimal Price { get; set; }
         public string Location { get; set; }
 
         public class CreatePizzaCommandHandler : IRequestHandler<CreatePizzaCommand, PizzaDto>
@@ -27,8 +26,7 @@ namespace pizzeriaserver.Application.Commands
                 var pizza = new PizzaDto()
                 {
                     Name = command.Name,
-                    Description = command.Description,
-                    Price = command.Price
+                    Description = command.Description
                 };
 
                 return await _pizzaRepository.AddPizzaAsync(pizza);

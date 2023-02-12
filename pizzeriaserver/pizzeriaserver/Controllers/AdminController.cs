@@ -40,6 +40,19 @@ namespace pizzeriaserver.Controllers
         }
 
         [HttpPost]
+        [Route("pizza")]
+        public async Task<PizzaDto> AddNewPizza(PizzaDto pizza)
+        {
+            var resp = await _mediator.Send(new CreatePizzaCommand()
+            {
+                Name = pizza.Name,
+                Description = pizza.Description
+            });
+
+            return resp;
+        }
+
+        [HttpPost]
         [Route("pizzalocation")]
         public async Task<PizzaLocationDto> AddNewPizzaLocation(AddNewPizzaLocationRequest pizzaLocation)
         {
