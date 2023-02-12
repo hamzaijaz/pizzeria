@@ -24,29 +24,6 @@ export const EditLocationModal = ({
         });
     }, [form, name, address]);
 
-    // const [locationNameEdit, setlocationNameEdit] = useState(locationName);
-    // const [locationAddressEdit, setlocationAddressEdit] = useState(locationAddress);
-
-    // useEffect(() => {
-    //     async function getAllLocations() {
-    //         setlocationNameEdit(locationName);
-    //         setlocationAddressEdit(locationAddress);
-    //     }
-    //     getAllLocations();
-    //   }, []);
-
-    const [isLocationAdded, setIsLocationAdded] = useState(false);
-    const submit = async (values) => {
-        setIsLocationAdded(true);
-    };
-
-    const handleInputChange = (event) => {
-        setValues({
-          ...formValues,
-          [event.target.name]: event.target.value,
-        });
-      };
-
     const handleSubmit = async () => {
         try {
             setLoading(true);

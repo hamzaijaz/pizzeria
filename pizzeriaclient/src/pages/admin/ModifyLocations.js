@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import authorisedClient from "../../common/authorised-axios";
 import Button from "react-bootstrap/Button";
 import { useHistory } from 'react-router-dom';
-import Modal from "react-bootstrap/Modal";
 import AddLocationModal from "../../components/AddLocationModal";
 import EditLocationModal from "../../components/EditLocationModal";
 import EditLocationButton from "../../components/EditLocationButton";
@@ -19,26 +18,13 @@ export const ModifyLocations = () => {
     const handleCloseAddLocationModal = () => { setShowAddLocationModal(false); };
     const handleShowAddLocationModal = () => { setShowAddLocationModal(true); }
 
-    // const [locationIdToEdit, setLocationIdToEdit] = useState(0);
-    // const [locationNameToEdit, setLocationNameToEdit] = useState("");
-    // const [locationAddressToEdit, setLocationAddressToEdit] = useState("");
+    
     const [initialValues, setInitialValues] = useState({ id: 0, name: "", address: "" });
     const [showEditLocationModal, setShowEditLocationModal] = useState(false);
 
     const handleCloseEditLocationModal = () => { 
-        // setLocationIdToEdit(0);
-        // setLocationNameToEdit("");
-        // setLocationAddressToEdit("");
         setShowEditLocationModal(false); 
     };
-    const handleShowEditLocationModal = (locationId, locationName, locationAddress) => { 
-        // setLocationIdToEdit(locationId);
-        // setLocationNameToEdit(locationName);
-        // setLocationAddressToEdit(locationAddress);
-        let inVals = {id: locationId, name: locationName, address: locationAddress};
-        setInitialValues(inVals);
-        setShowEditLocationModal(true); 
-    }
 
     const [locations, setLocations] = useState([]);
     const [noLocationsStored, setNoLocationsStored] = useState(false);
