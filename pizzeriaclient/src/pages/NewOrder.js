@@ -10,15 +10,30 @@ export const NewOrder = () => {
     history.push('/');
   }
   const [locations, setLocations] = useState([]);
-  const [noLocationsStored, setNoLocationsStored] = useState(false)
+  const [noLocationsStored, setNoLocationsStored] = useState(false);
+  const [currentLocationHasPizzas, setcurrentLocationHasPizzas] = useState(false);
 
   const [selectedLocation, setSelectedLocation] = useState(0);
   const [showPizzas, setShowItem] = useState(false);
 
-  const [pizzasForLocation, setPizzasForLocation] = useState([]);
   const [pizzasWithCount, setPizzasWithCount] = useState([]);
 
   const [totalCost, setTotalCost] = useState(0);
+
+  useEffect(() => {
+    async function getAllLocations() {
+      let response = await authorisedClient.get(
+        `Admin/location/all`
+      );
+
+      if (response.data.length === 0) {
+        setNoLocationsStored(true)
+      }
+
+      setLocations(response.data);
+    }
+    getAllLocations();
+  }, []);
 
   const handleLocationChange = async (e) => {
     setSelectedLocation(e.target.value);
@@ -33,29 +48,18 @@ export const NewOrder = () => {
         `Pizza/pizzasforlocation/${e.target.value}`
       );
 
+      if (response.data.length > 0) {
+        setcurrentLocationHasPizzas(true);
+      }
+
       var pizzasWithCountTemp = response.data.map(pizza => ({
         ...pizza,
         count: 0
       }));
 
       setPizzasWithCount(pizzasWithCountTemp);
-      setPizzasForLocation(response.data);
     }
   };
-
-  useEffect(() => {
-    async function getAllLocations() {
-      let response = await authorisedClient.get(
-        `Admin/location/all`
-      );
-      setLocations(response);
-
-      if (response.data.length === 0) {
-        setNoLocationsStored(true)
-      }
-    }
-    getAllLocations();
-  }, []);
 
   const handlePlus = (index) => {
     var newPizzaCount = [...pizzasWithCount];
@@ -81,11 +85,18 @@ export const NewOrder = () => {
   return (
     <div>
       {noLocationsStored && (
-        <div className="alert alert-danger" role="alert">
-          There are no branches of Pizzeria restaurant in any area. Please come back later.
-        </div>
+        <>
+          <div className="alert alert-danger" role="alert">
+            <p>There are no branches of Pizzeria restaurant in any area. Please come back later.</p>
+            <p>If the admin adds any new locations, you can come back and see the updated locations</p>
+          </div>
+          <Button className="mb-2" variant="primary" onClick={cancelOrder}>
+            Back to home page
+          </Button>
+        </>
       )}
-      {locations.data && (
+
+      {locations !== null && locations.length > 0 && (
         <div>
           <form>
             <fieldset>
@@ -93,13 +104,13 @@ export const NewOrder = () => {
                 Location:
                 <select className="ml-2 stylish-dropdown" value={selectedLocation} name="location" id="location" onChange={handleLocationChange} required>
                   <option value={0}>Please select a location</option>
-                  {locations.data.map(item => (
+                  {locations.map(item => (
                     <option key={item.id} value={item.id}>{item.name}</option>
                   ))}
                 </select>
               </label>
 
-              {showPizzas && (
+              {showPizzas && currentLocationHasPizzas && (
                 <div>
                   <p className="mt-2">Following pizzas are available in your selected branch. Please select your pizzas</p>
                   <ul className="nobullets">
@@ -115,6 +126,11 @@ export const NewOrder = () => {
                   <span className="ml-2">{totalCost}</span>
                 </div>
               )}
+
+              {showPizzas && !currentLocationHasPizzas && (
+                <>
+                  <p className="alert alert-danger" role="alert">There are no pizzas available in your selected location.</p>
+                </>)}
             </fieldset>
           </form>
 

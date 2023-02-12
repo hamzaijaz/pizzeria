@@ -38,6 +38,9 @@ namespace pizzeriaserver.Repositories
                 throw new NotFoundException(nameof(Location), id);
             }
 
+            var pizzaLocationsToDelete = await _dbContext.PizzaLocations.Where(pl => pl.LocationId == id).ToListAsync();
+
+            _dbContext.PizzaLocations.RemoveRange(pizzaLocationsToDelete);
             _dbContext.Locations.Remove(locationToDelete);
             await _dbContext.SaveChangesAsync();
             return locationToDelete.Id;

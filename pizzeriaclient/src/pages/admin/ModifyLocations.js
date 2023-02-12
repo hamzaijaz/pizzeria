@@ -96,9 +96,16 @@ export const ModifyLocations = () => {
         <div>
             <p>This is Modify Locations page</p>
 
-            {noLocationsStored && (<div>
-                <p>Currently there are no active locations of Pizzeria. Please add new location to see any active locations</p>
-            </div>)}
+            {noLocationsStored && (<>
+                <p className="alert alert-danger" role="alert">Currently there are no active locations of Pizzeria. Please add new location to see any active locations</p>
+                <AddLocationModal
+                    show={showAddLocationModal}
+                    handleClose={handleCloseAddLocationModal}
+                    onAddLocation={onAddLocation}
+                />
+                <Button onClick={GoToAdminHome} type="button" className="btn btn-primary marginbottom mr-4">Back</Button>
+                <Button onClick={handleShowAddLocationModal} type="button" className="btn btn-primary marginbottom">Add a new Location</Button>
+            </>)}
 
             {!noLocationsStored && (<div>
                 <p>Following are the currently active locations of Pizzeria:</p>
