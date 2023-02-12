@@ -14,8 +14,8 @@ export const ModifyLocations = () => {
     }
 
     const [show, setShow] = useState(false);
-    const handleClose = () => { setShow(false); };
-    const handleShow = () => { setShow(true); }
+    const handleCloseAddLocationModal = () => { setShow(false); };
+    const handleShowAddLocationModal = () => { setShow(true); }
 
     const [locations, setLocations] = useState([]);
     const [noLocationsStored, setNoLocationsStored] = useState(false)
@@ -97,11 +97,11 @@ export const ModifyLocations = () => {
 
                 <AddLocationModal
                     show={show}
-                    handleClose={handleClose}
+                    handleClose={handleCloseAddLocationModal}
                     onAddLocation={onAddLocation}
                 />
                 <Button onClick={GoToAdminHome} type="button" className="btn btn-primary marginbottom mr-4">Back</Button>
-                <Button onClick={handleShow} type="button" className="btn btn-primary marginbottom">Add a new Location</Button>
+                <Button onClick={handleShowAddLocationModal} type="button" className="btn btn-primary marginbottom">Add a new Location</Button>
 
 
             </div>)}
