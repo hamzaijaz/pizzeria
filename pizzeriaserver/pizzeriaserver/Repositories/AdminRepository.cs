@@ -59,6 +59,7 @@ namespace pizzeriaserver.Repositories
             }
 
             locationToUpdate.Name = locationDetails.Name;
+            locationToUpdate.Address = locationDetails.Address;
 
             await _dbContext.SaveChangesAsync();
 

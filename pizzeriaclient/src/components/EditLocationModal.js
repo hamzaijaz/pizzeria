@@ -6,36 +6,52 @@ export const EditLocationModal = ({
     show,
     handleClose,
     onEditLocation,
-    locationId,
-    locationName,
-    locationAddress
+    id,
+    name,
+    address
 }) => {
 
     const [form] = Form.useForm();
     const [loading, setLoading] = useState(false);
     const [success, setSuccess] = useState(false);
 
-    const [locationNameEdit, setlocationNameEdit] = useState(locationName);
-    const [locationAddressEdit, setlocationAddressEdit] = useState(locationAddress);
+    const [formValues, setValues] = useState({id: id, name: name, address: address});
 
     useEffect(() => {
-        async function getAllLocations() {
-            setlocationNameEdit(locationName);
-            setlocationAddressEdit(locationAddress);
-        }
-        getAllLocations();
-      }, []);
+        form.setFieldsValue({
+          locationName: name,
+          locationAddress: address,
+        });
+    }, [form, name, address]);
+
+    // const [locationNameEdit, setlocationNameEdit] = useState(locationName);
+    // const [locationAddressEdit, setlocationAddressEdit] = useState(locationAddress);
+
+    // useEffect(() => {
+    //     async function getAllLocations() {
+    //         setlocationNameEdit(locationName);
+    //         setlocationAddressEdit(locationAddress);
+    //     }
+    //     getAllLocations();
+    //   }, []);
 
     const [isLocationAdded, setIsLocationAdded] = useState(false);
     const submit = async (values) => {
         setIsLocationAdded(true);
     };
 
+    const handleInputChange = (event) => {
+        setValues({
+          ...formValues,
+          [event.target.name]: event.target.value,
+        });
+      };
+
     const handleSubmit = async () => {
         try {
             setLoading(true);
             const values = await form.validateFields();
-            await onEditLocation(values);
+            await onEditLocation(formValues.id, values.locationName, values.locationAddress);
             setSuccess(true);
             setTimeout(() => {
                 // Code to be executed after 3 seconds
@@ -71,7 +87,7 @@ export const EditLocationModal = ({
             >
                 <Form form={form}>
                     <Form.Item
-                        name="name"
+                        name="locationName"
                         label="Location Name"
                         rules={[
                             {
@@ -80,10 +96,10 @@ export const EditLocationModal = ({
                             },
                         ]}
                     >
-                        <Input defaultValue={locationNameEdit} />
+                        <Input />
                     </Form.Item>
                     <Form.Item
-                        name="address"
+                        name="locationAddress"
                         label="Location Address"
                         rules={[
                             {
@@ -92,7 +108,7 @@ export const EditLocationModal = ({
                             },
                         ]}
                     >
-                        <Input defaultValue={locationAddressEdit} />
+                        <Input />
                     </Form.Item>
                 </Form>
                 {success && (
