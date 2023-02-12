@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using pizzeriaserver.Data;
 
@@ -11,9 +12,11 @@ using pizzeriaserver.Data;
 namespace pizzeriaserver.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class DbContextClassModelSnapshot : ModelSnapshot
+    [Migration("20230212170335_added_unique_constraint_on_LocationName_column")]
+    partial class addeduniqueconstraintonLocationNamecolumn
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -1,6 +1,7 @@
 ﻿using Ardalis.GuardClauses;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using pizzeriaserver.Application.Common.Exceptions;
 using pizzeriaserver.Application.Models;
 using pizzeriaserver.Data;
 using pizzeriaserver.Data.Entities;
@@ -24,6 +25,12 @@ namespace pizzeriaserver.Repositories
 
         public async Task<LocationDto> AddLocationAsync(LocationDto locationDetails)
         {
+            var existingLocation = await _dbContext.Locations.FirstOrDefaultAsync(l => l.Name == locationDetails.Name);
+            if(existingLocation != null) 
+            {
+                throw new DuplicateItemException(nameof(Location.Name) + "(" + locationDetails.Name + ")");
+            }
+
             var location = _mapper.Map<Location>(locationDetails);
             var result = _dbContext.Locations.Add(location);
             await _dbContext.SaveChangesAsync();

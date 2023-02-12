@@ -63,6 +63,10 @@ namespace pizzeriaserver.Data
         {
             modelBuilder.Entity<PizzaLocation>()
                 .HasKey(pl => new { pl.PizzaId, pl.LocationId });
+
+            modelBuilder.Entity<Location>()
+            .HasIndex(p => p.Name)
+            .IsUnique();
         }
     }
 }
