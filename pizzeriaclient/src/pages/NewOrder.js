@@ -101,10 +101,10 @@ export const NewOrder = () => {
 
               {showPizzas && (
                 <div>
-                  <p>Following pizzas are available in your selected branch. Please select your pizzas</p>
+                  <p className="mt-2">Following pizzas are available in your selected branch. Please select your pizzas</p>
                   <ul className="nobullets">
                     {pizzasWithCount.map((pizza, index) => (
-                      <li className="mt-4" key={pizza.id}>{pizza.name} : ${pizza.price}
+                      <li className="mt-4" key={pizza.id}>{pizza.name} : ${pizza.price} each
                         <Button className="ml-2 mr-2" onClick={() => handleMinus(index)}>-</Button>
                         <span>{pizza.count}</span>
                         <Button className="ml-2 mr-2" onClick={() => handlePlus(index)}>+</Button></li>
