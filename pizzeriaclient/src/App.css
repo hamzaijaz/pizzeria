@@ -95,6 +95,9 @@
   background-color: #c2edce;
 }
 
+.marginbottom {
+  margin-bottom: 5rem;
+}
 
 .footer {
   position: fixed;

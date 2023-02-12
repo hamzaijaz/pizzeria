@@ -1,61 +1,90 @@
 import React, { useState, useEffect } from "react";
-import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
+import { Modal, Form, Input } from 'antd';
 
 export const AddLocationModal = ({
     show,
-    handleClose
+    handleClose,
+    onAddLocation
 }) => {
+
+    const [form] = Form.useForm();
+    const [loading, setLoading] = useState(false);
+    const [success, setSuccess] = useState(false);
 
     const [isLocationAdded, setIsLocationAdded] = useState(false);
     const submit = async (values) => {
         setIsLocationAdded(true);
     };
 
+    const handleSubmit = async () => {
+        try {
+            setLoading(true);
+            const values = await form.validateFields();
+            await onAddLocation(values);
+            setSuccess(true);
+            setTimeout(() => {
+                // Code to be executed after 3 seconds
+            }, 3000);
+            setLoading(false);
+            //onAddLocation(values);
+        } catch (err) {
+            console.error(err);
+            setLoading(false);
+        }
+    };
+
     return (
         <>
-            <form onSubmit={submit}>
-                <Modal className="mt-5"
-                    show={show}
-                    onHide={handleClose}
-                    dialogClassName="modal-50w"
-                    style={{ width: "100%", height: "500px" }}
-                >
-                    <Modal.Header>
-                        <div className="flex flex-justify flex-fill">
-                            <p className=""><b>Location name:</b></p>
-                            <p className=""><b>Address:</b></p>
-
-                            <Button
-                                className="mb-sm-0 mb-3 btn btn-secondary"
-                                type="button"
-                                variant="secondary"
-                                onClick={handleClose}
-                            >
-                                Close
-                            </Button>
-
-                            <Button onClick={submit}
-                                className="ml-4 mb-sm-0 mb-3 btn btn-secondary"
-                                variant="secondary"
-                                type="submit"
-                            >
-                                Submit
-                            </Button>
-
-                            {isLocationAdded && (
-                <>
-                <p>Location successfully added</p>
-                </>)}
-                        </div>
-                    </Modal.Header>
-                </Modal>
-            </form>
-
-            {isLocationAdded && (
-                <>
-                <p>Location successfully added</p>
-                </>)}
+            <Modal
+                open={show}
+                title="Add New Location"
+                onCancel={handleClose}
+                footer={[
+                    <Button key="back" onClick={handleClose}>
+                        Cancel
+                    </Button>,
+                    <Button
+                        className="ml-4"
+                        key="submit"
+                        type="primary"
+                        loading={loading}
+                        onClick={handleSubmit}
+                    >
+                        Submit
+                    </Button>,
+                ]}
+            >
+                <Form form={form}>
+                    <Form.Item
+                        name="name"
+                        label="Location Name"
+                        rules={[
+                            {
+                                required: true,
+                                message: 'Please enter location name',
+                            },
+                        ]}
+                    >
+                        <Input />
+                    </Form.Item>
+                    <Form.Item
+                        name="address"
+                        label="Location Address"
+                        rules={[
+                            {
+                                required: true,
+                                message: 'Please enter location address',
+                            },
+                        ]}
+                    >
+                        <Input />
+                    </Form.Item>
+                </Form>
+                {success && (
+                    <p style={{ color: 'green' }}>Location added successfully</p>
+                )}
+            </Modal>
         </>
 
     );
