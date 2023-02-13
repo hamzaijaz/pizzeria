@@ -8,7 +8,6 @@ using pizzeriaserver.Data.Services;
 using pizzeriaserver.Middleware;
 using pizzeriaserver.Repositories;
 using System.Reflection;
-using Microsoft.AspNetCore.Cors;
 
 var builder = WebApplication.CreateBuilder(args);
 

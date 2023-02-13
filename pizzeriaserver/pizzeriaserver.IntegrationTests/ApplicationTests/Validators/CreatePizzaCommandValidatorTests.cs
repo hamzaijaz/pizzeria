@@ -1,11 +1,6 @@
 ﻿using FluentAssertions;
 using pizzeriaserver.Application.Commands;
 using pizzeriaserver.Application.Validators;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace pizzeriaserver.IntegrationTests.ApplicationTests.Validators
 {
@@ -157,6 +152,26 @@ namespace pizzeriaserver.IntegrationTests.ApplicationTests.Validators
             // Assert
             result.IsValid.Should().BeFalse();
             result.Errors.Should().Contain(error => error.ErrorMessage == "Please select atleast one locaiton");
+        }
+
+        [Fact]
+        public void When_Valid_Input_Is_Provided_Should_Return_Success()
+        {
+            // Arrange
+            var command = new CreatePizzaCommand
+            {
+                Name = "Margherita",
+                Description = "Delicious Pizza",
+                Price = 20m,
+                LocationIds = new List<int> { 1, 2, 3 }
+            };
+
+            // Act
+            var result = _validator.Validate(command);
+
+            // Assert
+            result.IsValid.Should().BeTrue();
+            result.Errors.Should().BeEmpty();
         }
     }
 }
