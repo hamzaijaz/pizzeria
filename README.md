@@ -28,6 +28,7 @@ This should create schema and apply all migrations to your database. You can ver
 4. Now select ```pizzeriaserver``` as your startup project and start with debugging.
 You should see Swagger UI page open in your browser on ```localhost:7213```
 If you have seen this, it is good news!
+<img width="930" alt="image" src="https://user-images.githubusercontent.com/33806340/218599717-46171c89-c79c-4544-88f9-7aae8d05d3bc.png">
 
 #### Front-end:
 Prerequisite software installation
