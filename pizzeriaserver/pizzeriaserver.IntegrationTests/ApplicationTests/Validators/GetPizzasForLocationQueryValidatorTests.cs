@@ -5,22 +5,22 @@ using pizzeriaserver.Application.Validators;
 namespace pizzeriaserver.IntegrationTests.ApplicationTests.Validators
 {
     [Collection("Tests")]
-    public class GetPizzaByIdQueryValidatorTests
+    public class GetPizzasForLocationQueryValidatorTests
     {
-        private readonly GetPizzaByIdQueryValidator _validator;
+        private readonly GetPizzasForLocationQueryValidator _validator;
 
-        public GetPizzaByIdQueryValidatorTests()
+        public GetPizzasForLocationQueryValidatorTests()
         {
-            _validator = new GetPizzaByIdQueryValidator();
+            _validator = new GetPizzasForLocationQueryValidator();
         }
 
         [Fact]
-        public void When_Id_Is_Negative_Should_Return_Error()
+        public void When_LocationId_Is_Negative_Should_Return_Error()
         {
             // Arrange
-            var query = new GetPizzaByIdQuery
+            var query = new GetPizzasForLocationQuery
             {
-                Id = -1
+                LocationId = -1
             };
 
             // Act
@@ -28,16 +28,16 @@ namespace pizzeriaserver.IntegrationTests.ApplicationTests.Validators
 
             // Assert
             result.IsValid.Should().BeFalse();
-            result.Errors.Should().Contain(error => error.ErrorMessage == "Pizza Id must be greater than zero");
+            result.Errors.Should().Contain(error => error.ErrorMessage == "Location Id must be greater than zero");
         }
 
         [Fact]
         public void When_Valid_Input_Is_Provided_Should_Return_Success()
         {
             // Arrange
-            var query = new GetPizzaByIdQuery
+            var query = new GetPizzasForLocationQuery
             {
-                Id = 1
+                LocationId = 1
             };
 
             // Act
