@@ -8,8 +8,8 @@ namespace pizzeriaserver.Application.Validators
         public UpdateLocationCommandValidator()
         {
             RuleFor(v => v.Id)
-                .NotNull().WithMessage("Name must not be null")
-                .NotEmpty().WithMessage("Name must not be empty")
+                .NotNull().WithMessage("Location Id must not be null")
+                .NotEmpty().WithMessage("Location Id must not be empty")
                 .GreaterThan(0).WithMessage("Location Id must be greater than zero");
 
             RuleFor(v => v.Name)
