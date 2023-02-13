@@ -125,6 +125,7 @@ namespace pizzeriaserver.Controllers
 
         //Toppings
         [HttpPost]
+        [Route("topping")]
         public async Task<ToppingDto> AddNewTopping(ToppingDto topping)
         {
             var resp = await _mediator.Send(new CreateToppingCommand()
@@ -136,6 +137,7 @@ namespace pizzeriaserver.Controllers
         }
 
         [HttpPut]
+        [Route("topping")]
         public async Task<ToppingDto> UpdateTopping(ToppingDto topping)
         {
             var resp = await _mediator.Send(new UpdateToppingCommand()
@@ -148,6 +150,7 @@ namespace pizzeriaserver.Controllers
         }
 
         [HttpDelete]
+        [Route("topping/{toppingId}")]
         public async Task<int> DeleteTopping(int toppingId)
         {
             var resp = await _mediator.Send(new DeleteToppingCommand()
