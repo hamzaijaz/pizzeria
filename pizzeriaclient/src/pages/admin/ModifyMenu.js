@@ -45,6 +45,16 @@ export const ModifyMenu = () => {
         setShowAddPizzaModal(false);
     };
 
+    const onDeletePizza = async (pizzaId) => {
+        let selectedLocationId = Number(selectedLocation);
+        var resp = await authorisedClient.delete(`Admin/pizza/${pizzaId}/location/${selectedLocationId}`);
+
+        if (resp.status === 200) {
+            window.location.reload();
+            alert("Pizza was successfully deleted");
+        }
+    };
+
     const onEditPizza = async (pizzaId, newPizzaName, newPizzaDescription, newPizzaPrice, locationId) => {
         // Handle adding location to the server here
         // ...
@@ -163,7 +173,7 @@ export const ModifyMenu = () => {
                                 <td className="text-left col-3">{pizza.description}</td>
                                 <td>${pizza.price}</td>
                                 <td><EditPizzaButton name={pizza.name} id={pizza.id} description={pizza.description} onEditPizza={onEditPizza} price={pizza.price} currentLocationId={Number(selectedLocation)} type="button" className="btn btn-primary">Edit</EditPizzaButton></td>
-                                <td><Button className="btn btn-danger">Delete</Button></td>
+                                <td><Button onClick={() => onDeletePizza(pizza.id)} type="button" className="btn btn-danger">Delete</Button></td>
                                 {/* <td><EditLocationButton name={location.name} id={location.id} address={location.address} onEditLocation={onEditLocation} type="button" className="btn btn-primary">Edit</EditLocationButton></td>
                                 <td><Button onClick={() => onDeleteLocation(location.id)} type="button" className="btn btn-danger">Delete</Button></td> */}
                             </tr>

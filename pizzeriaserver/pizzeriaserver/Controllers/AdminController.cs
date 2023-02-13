@@ -111,13 +111,13 @@ namespace pizzeriaserver.Controllers
         }
 
         [HttpDelete]
-        [Route("pizza/delete")]
-        public async Task<int> DeletePizza(int pizzaId, int pizzaLocationId)
+        [Route("pizza/{pizzaId}/location/{locationId}")]
+        public async Task<int> DeletePizza(int pizzaId, int locationId)
         {
             var resp = await _mediator.Send(new DeletePizzaCommand()
             {
                 Id = pizzaId,
-                PizzaLocationId = pizzaLocationId
+                PizzaLocationId = locationId
             });
 
             return resp;
