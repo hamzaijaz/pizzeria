@@ -21,8 +21,8 @@ namespace pizzeriaserver.Application.Validators
                 .GreaterThanOrEqualTo(0).WithMessage("Pizza price must be greater than or equal to zero");
 
             RuleFor(v => v.LocationIds)
-                .NotNull().WithMessage("Pizza price must not be null")
-                .NotEmpty().WithMessage("Pizza description must not be empty");
+                .NotNull().WithMessage("Locations list must not be null")
+                .NotEmpty().WithMessage("Please select atleast one locaiton");
         }
     }
 }
