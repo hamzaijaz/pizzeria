@@ -1,8 +1,8 @@
 ﻿using Ardalis.GuardClauses;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using pizzeriaserver.Application.Common.Interfaces;
 using pizzeriaserver.Application.Models;
-using pizzeriaserver.Data;
 using pizzeriaserver.Data.Entities;
 using NotFoundException = pizzeriaserver.Application.Common.Exceptions.NotFoundException;
 
@@ -10,10 +10,10 @@ namespace pizzeriaserver.Repositories
 {
     public class PizzaRepository : IPizzaRepository
     {
-        private readonly ApplicationDbContext _dbContext;
+        private readonly IApplicationDbContext _dbContext;
         private readonly IMapper _mapper;
 
-        public PizzaRepository(ApplicationDbContext dbContext, IMapper mapper)
+        public PizzaRepository(IApplicationDbContext dbContext, IMapper mapper)
         {
             Guard.Against.Null(dbContext, nameof(dbContext));
             Guard.Against.Null(mapper, nameof(mapper));

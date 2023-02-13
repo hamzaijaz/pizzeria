@@ -36,7 +36,7 @@ namespace pizzeriaserver.IntegrationTests.ApplicationTests.Queries
                 .SetupSequence(x => x.GetAllLocationsAsync())
                 .ReturnsAsync(fixtureLocations);
 
-            var handler = new GetAllLocationsQuery.GetAllLocationsHandler(mockAdminRepository.Object);
+            var handler = new GetAllLocationsQuery.GetAllLocationsQueryHandler(mockAdminRepository.Object);
 
             // Act
             var result = await handler.Handle(new GetAllLocationsQuery(), CancellationToken.None);
@@ -65,7 +65,7 @@ namespace pizzeriaserver.IntegrationTests.ApplicationTests.Queries
                 .SetupSequence(x => x.GetAllLocationsAsync())
                 .ReturnsAsync(locationDtos);
 
-            var handler = new GetAllLocationsQuery.GetAllLocationsHandler(mockAdminRepository.Object);
+            var handler = new GetAllLocationsQuery.GetAllLocationsQueryHandler(mockAdminRepository.Object);
 
             // Act
             var result = await handler.Handle(new GetAllLocationsQuery(), CancellationToken.None);

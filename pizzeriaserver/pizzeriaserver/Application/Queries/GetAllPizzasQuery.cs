@@ -7,11 +7,11 @@ namespace pizzeriaserver.Application.Queries
 {
     public class GetAllPizzasQuery : IRequest<List<PizzaDto>>
     {
-        public class GetAllPizzasHandler : IRequestHandler<GetAllPizzasQuery, List<PizzaDto>>
+        public class GetAllPizzasQueryHandler : IRequestHandler<GetAllPizzasQuery, List<PizzaDto>>
         {
             private readonly IPizzaRepository _pizzaRepository;
 
-            public GetAllPizzasHandler(IPizzaRepository pizzaRepository)
+            public GetAllPizzasQueryHandler(IPizzaRepository pizzaRepository)
             {
                 Guard.Against.Null(pizzaRepository, nameof(pizzaRepository));
                 _pizzaRepository = pizzaRepository;

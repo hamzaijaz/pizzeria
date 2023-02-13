@@ -7,11 +7,11 @@ namespace pizzeriaserver.Application.Queries
 {
     public class GetAllToppingsQuery : IRequest<List<ToppingDto>>
     {
-        public class GetAllToppingsHandler : IRequestHandler<GetAllToppingsQuery, List<ToppingDto>>
+        public class GetAllToppingsQueryHandler : IRequestHandler<GetAllToppingsQuery, List<ToppingDto>>
         {
             private readonly IToppingRepository _toppingRepository;
 
-            public GetAllToppingsHandler(IToppingRepository toppingRepository)
+            public GetAllToppingsQueryHandler(IToppingRepository toppingRepository)
             {
                 Guard.Against.Null(toppingRepository, nameof(toppingRepository));
                 _toppingRepository = toppingRepository;

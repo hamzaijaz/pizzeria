@@ -7,11 +7,11 @@ namespace pizzeriaserver.Application.Queries
 {
     public class GetAllLocationsQuery : IRequest<List<LocationDto>>
     {
-        public class GetAllLocationsHandler : IRequestHandler<GetAllLocationsQuery, List<LocationDto>>
+        public class GetAllLocationsQueryHandler : IRequestHandler<GetAllLocationsQuery, List<LocationDto>>
         {
             private readonly IAdminRepository _adminRepository;
 
-            public GetAllLocationsHandler(IAdminRepository adminRepository)
+            public GetAllLocationsQueryHandler(IAdminRepository adminRepository)
             {
                 Guard.Against.Null(adminRepository, nameof(adminRepository));
                 _adminRepository = adminRepository;

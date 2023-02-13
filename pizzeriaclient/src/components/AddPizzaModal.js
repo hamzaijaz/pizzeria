@@ -139,7 +139,7 @@ export const AddPizzaModal = ({
                                 <Col span={12 / 2} key={index}>
                                     <Checkbox className="mr-3"
                                         key={item.id}
-                                        defaultChecked={item.id === selectedLocation}
+                                        // defaultChecked={item.id === selectedLocation}
                                         onChange={handleCheckboxChange}></Checkbox></Col>
                             </Form.Item>
                         ))}
