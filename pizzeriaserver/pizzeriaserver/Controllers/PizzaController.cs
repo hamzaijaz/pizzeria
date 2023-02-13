@@ -40,17 +40,5 @@ namespace pizzeriaserver.Controllers
             var resp = await _mediator.Send(new GetPizzaByIdQuery() { Id = id });
             return resp;
         }
-
-        [HttpDelete]
-        public async Task<int> DeletePizza(int pizzaId, int pizzaLocationId)
-        {
-            var resp = await _mediator.Send(new DeletePizzaCommand()
-            {
-                Id = pizzaId,
-                PizzaLocationId = pizzaLocationId
-            });
-
-            return resp;
-        }
     }
 }

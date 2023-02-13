@@ -109,5 +109,18 @@ namespace pizzeriaserver.Controllers
 
             return resp;
         }
+
+        [HttpDelete]
+        [Route("pizza/delete")]
+        public async Task<int> DeletePizza(int pizzaId, int pizzaLocationId)
+        {
+            var resp = await _mediator.Send(new DeletePizzaCommand()
+            {
+                Id = pizzaId,
+                PizzaLocationId = pizzaLocationId
+            });
+
+            return resp;
+        }
     }
 }
