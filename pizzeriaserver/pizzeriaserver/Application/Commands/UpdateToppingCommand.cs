@@ -12,13 +12,13 @@ namespace pizzeriaserver.Application.Commands
 
         public class UpdateToppingCommandHandler : IRequestHandler<UpdateToppingCommand, ToppingDto>
         {
-            private readonly IToppingRepository _toppingRepository;
+            private readonly IAdminRepository _adminRepository;
 
-            public UpdateToppingCommandHandler(IToppingRepository toppingRepository)
+            public UpdateToppingCommandHandler(IAdminRepository adminRepository)
             {
-                Guard.Against.Null(toppingRepository, nameof(toppingRepository));
+                Guard.Against.Null(adminRepository, nameof(adminRepository));
 
-                _toppingRepository = toppingRepository;
+                _adminRepository = adminRepository;
             }
 
             public async Task<ToppingDto> Handle(UpdateToppingCommand command, CancellationToken cancellationToken)
@@ -29,7 +29,7 @@ namespace pizzeriaserver.Application.Commands
                     Name = command.Name
                 };
 
-                return await _toppingRepository.UpdateToppingAsync(topping);
+                return await _adminRepository.UpdateToppingAsync(topping);
             }
         }
     }

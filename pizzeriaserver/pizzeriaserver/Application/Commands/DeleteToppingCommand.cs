@@ -10,18 +10,18 @@ namespace pizzeriaserver.Application.Commands
 
         public class DeleteToppingCommandHandler : IRequestHandler<DeleteToppingCommand, int>
         {
-            private readonly IToppingRepository _toppingRepository;
+            private readonly IAdminRepository _adminRepository;
 
-            public DeleteToppingCommandHandler(IToppingRepository toppingRepository)
+            public DeleteToppingCommandHandler(IAdminRepository adminRepository)
             {
-                Guard.Against.Null(toppingRepository, nameof(toppingRepository));
+                Guard.Against.Null(adminRepository, nameof(adminRepository));
 
-                _toppingRepository = toppingRepository;
+                _adminRepository = adminRepository;
             }
 
             public async Task<int> Handle(DeleteToppingCommand command, CancellationToken cancellationToken)
             {
-                return await _toppingRepository.DeleteToppingAsync(command.Id);
+                return await _adminRepository.DeleteToppingAsync(command.Id);
             }
         }
     }

@@ -22,27 +22,6 @@ namespace pizzeriaserver.Repositories
             _mapper = mapper;
         }
 
-        public async Task<ToppingDto> AddToppingAsync(ToppingDto toppingDetails)
-        {
-            var topping = _mapper.Map<Topping>(toppingDetails);
-            var result = _dbContext.Toppings.Add(topping);
-            await _dbContext.SaveChangesAsync();
-            return _mapper.Map<ToppingDto>(result.Entity);
-        }
-
-        public async Task<int> DeleteToppingAsync(int id)
-        {
-            var toppingToDelete = await _dbContext.Toppings.Where(x => x.Id == id).FirstOrDefaultAsync();
-            if (toppingToDelete == null)
-            {
-                throw new NotFoundException(nameof(Topping), id);
-            }
-
-            _dbContext.Toppings.Remove(toppingToDelete);
-            await _dbContext.SaveChangesAsync();
-            return toppingToDelete.Id;
-        }
-
         public async Task<ToppingDto> GetToppingByIdAsync(int id)
         {
             var topping = await _dbContext.Toppings.Where(x => x.Id == id).FirstOrDefaultAsync();
@@ -60,21 +39,6 @@ namespace pizzeriaserver.Repositories
             var toppings = await _dbContext.Toppings.AsNoTracking().ToListAsync();
             var response = toppings.Select(topping => _mapper.Map<ToppingDto>(topping)).ToList();
             return response;
-        }
-
-        public async Task<ToppingDto> UpdateToppingAsync(ToppingDto toppingDetails)
-        {
-            var toppingToUpdate = await _dbContext.Toppings.Where(p => p.Id == toppingDetails.Id).FirstOrDefaultAsync();
-            if (toppingToUpdate == null)
-            {
-                throw new NotFoundException(nameof(Topping), toppingDetails.Id);
-            }
-
-            toppingToUpdate.Name = toppingDetails.Name;
-
-            await _dbContext.SaveChangesAsync();
-
-            return _mapper.Map<ToppingDto>(toppingToUpdate);
         }
     }
 }
