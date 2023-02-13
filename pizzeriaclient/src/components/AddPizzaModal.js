@@ -67,6 +67,7 @@ export const AddPizzaModal = ({
                 open={show}
                 title="Add New Pizza"
                 onCancel={handleClose}
+                centered
                 footer={[
                     <Button key="back" onClick={handleClose}>
                         Cancel
@@ -122,7 +123,6 @@ export const AddPizzaModal = ({
 
                     <div className="mb-3">Please select locations in which you want to make this pizza available:</div>
 
-                    <Row>
                         {locations.map((item, index) => (
                             <Form.Item
                             className="m-2"
@@ -136,14 +136,12 @@ export const AddPizzaModal = ({
                                     },
                                 ]}
                             >
-                                <Col span={12 / 2} key={index}>
                                     <Checkbox className="mr-3"
                                         key={item.id}
                                         // defaultChecked={item.id === selectedLocation}
-                                        onChange={handleCheckboxChange}></Checkbox></Col>
+                                        onChange={handleCheckboxChange}></Checkbox>
                             </Form.Item>
                         ))}
-                    </Row>
                 </Form>
                 {success && (
                     <p style={{ color: 'green' }}>Pizza added successfully</p>
