@@ -108,7 +108,6 @@ export const EditPizzaModal = ({
                 )}
             </Modal>
         </>
-
     );
 };
 export default EditPizzaModal;

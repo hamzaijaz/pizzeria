@@ -22,7 +22,6 @@ export const AddLocationModal = ({
                 // Code to be executed after 3 seconds
             }, 3000);
             setLoading(false);
-            //onAddLocation(values);
         } catch (err) {
             console.error(err);
             setLoading(false);
@@ -81,7 +80,6 @@ export const AddLocationModal = ({
                 )}
             </Modal>
         </>
-
     );
 };
 export default AddLocationModal;

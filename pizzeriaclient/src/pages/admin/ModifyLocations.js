@@ -10,6 +10,7 @@ export const ModifyLocations = () => {
 
     const history = useHistory();
 
+    //navigate to admin home page when back button is clicked
     const GoToAdminHome = () => {
         history.push('/adminhome');
     }
@@ -18,20 +19,19 @@ export const ModifyLocations = () => {
     const handleCloseAddLocationModal = () => { setShowAddLocationModal(false); };
     const handleShowAddLocationModal = () => { setShowAddLocationModal(true); }
 
-    
+
     const [initialValues, setInitialValues] = useState({ id: 0, name: "", address: "" });
     const [showEditLocationModal, setShowEditLocationModal] = useState(false);
 
-    const handleCloseEditLocationModal = () => { 
-        setShowEditLocationModal(false); 
+    const handleCloseEditLocationModal = () => {
+        setShowEditLocationModal(false);
     };
 
     const [locations, setLocations] = useState([]);
     const [noLocationsStored, setNoLocationsStored] = useState(false);
 
     const onEditLocation = async (locationId, newLocationName, newLocationAddress) => {
-        // Handle adding location to the server here
-        // ...
+        //calling PUT Location API
         var resp = await authorisedClient.put(
             "Admin/location",
             {
@@ -52,6 +52,7 @@ export const ModifyLocations = () => {
     };
 
     const onDeleteLocation = async (locationId) => {
+        //Calling DELETE Location API
         var resp = await authorisedClient.delete(`Admin/location/${locationId}`);
         if (resp.status === 200) {
             window.location.reload();
@@ -60,8 +61,7 @@ export const ModifyLocations = () => {
     };
 
     const onAddLocation = async (locationDetails) => {
-        // Handle adding location to the server here
-        // ...
+        //Calling POST Location API
         var resp = await authorisedClient.post(
             "Admin/location",
             {
@@ -79,8 +79,10 @@ export const ModifyLocations = () => {
         setShowAddLocationModal(false);
     }
 
+    //Fetch all locations from server when this page is loaded first time
     useEffect(() => {
         async function getAllLocations() {
+            //Calling GET AllLocations API
             let response = await authorisedClient.get(
                 `Admin/location/all`
             );
@@ -92,9 +94,10 @@ export const ModifyLocations = () => {
         }
         getAllLocations();
     }, []);
+
     return (
         <div>
-            <p>This is Modify Locations page</p>
+            <p className="pt-3">This is Modify Locations page</p>
 
             {noLocationsStored && (<>
                 <p className="alert alert-danger" role="alert">Currently there are no active locations of Pizzeria. Please add new location to see any active locations</p>
@@ -149,10 +152,7 @@ export const ModifyLocations = () => {
                 />
                 <Button onClick={GoToAdminHome} type="button" className="btn btn-primary marginbottom mr-4">Back</Button>
                 <Button onClick={handleShowAddLocationModal} type="button" className="btn btn-primary marginbottom">Add a new Location</Button>
-
-
             </div>)}
-
         </div>
     );
 }

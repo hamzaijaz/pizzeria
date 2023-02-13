@@ -3,7 +3,6 @@ import { useHistory } from 'react-router-dom';
 import React, { useState, useEffect } from "react";
 import AddPizzaModal from "../../components/AddPizzaModal";
 import authorisedClient from "../../common/authorised-axios";
-import EditPizzaModal from "../../components/EditPizzaModal";
 import EditPizzaButton from "../../components/EditPizzaButton";
 
 export const ModifyMenu = () => {
@@ -24,8 +23,7 @@ export const ModifyMenu = () => {
     const [currentLocationHasPizzas, setcurrentLocationHasPizzas] = useState(false);
 
     const onAddPizza = async (pizzaDetails) => {
-        // Handle adding pizza to the server here
-        // ...
+        //Calling POST Pizza API of admin controller
         var resp = await authorisedClient.post(
             "Admin/pizza",
             {
@@ -47,6 +45,7 @@ export const ModifyMenu = () => {
 
     const onDeletePizza = async (pizzaId) => {
         let selectedLocationId = Number(selectedLocation);
+        //Calling DELETE Pizza API
         var resp = await authorisedClient.delete(`Admin/pizza/${pizzaId}/location/${selectedLocationId}`);
 
         if (resp.status === 200) {
@@ -56,8 +55,7 @@ export const ModifyMenu = () => {
     };
 
     const onEditPizza = async (pizzaId, newPizzaName, newPizzaDescription, newPizzaPrice, locationId) => {
-        // Handle adding location to the server here
-        // ...
+        //Calling PUT Pizza API
         var resp = await authorisedClient.put(
             "Admin/pizza",
             {
@@ -79,6 +77,7 @@ export const ModifyMenu = () => {
         setShowAddPizzaModal(false);
     };
 
+    //Fetch all locations from server when this page is loaded first time
     useEffect(() => {
         async function getAllLocations() {
             let response = await authorisedClient.get(
@@ -94,6 +93,7 @@ export const ModifyMenu = () => {
         getAllLocations();
     }, []);
 
+    //if location is changed from the dropdown
     const handleLocationChange = async (e) => {
         setSelectedLocation(e.target.value);
 
@@ -103,6 +103,7 @@ export const ModifyMenu = () => {
 
         else {
             setShowItem(true);
+            //Getting pizzas available at the selected location
             let response = await authorisedClient.get(
                 `Pizza/pizzasforlocation/${e.target.value}`
             );
@@ -117,7 +118,7 @@ export const ModifyMenu = () => {
 
     return (
         <div>
-            <p>This is modify menu page</p>
+            <p className="pt-3">This is modify menu page</p>
             <p>You can add new pizzas here</p>
 
             {noLocationsStored && (<>
@@ -125,43 +126,21 @@ export const ModifyMenu = () => {
             </>)}
 
             {!noLocationsStored && (<>
-            <form>
-                <fieldset>
-                    <label>
-                        Location:
-                        <select className="ml-2 stylish-dropdown" value={selectedLocation} name="location" id="location" onChange={handleLocationChange} required>
-                            <option value={0}>Please select a location</option>
-                            {locations.map(item => (
-                                <option key={item.id} value={item.id}>Id: {item.id}. Name: {item.name}</option>
-                            ))}
-                        </select>
-                    </label>
+                <form>
+                    <fieldset>
+                        <label>
+                            Location:
+                            <select className="ml-2 stylish-dropdown" value={selectedLocation} name="location" id="location" onChange={handleLocationChange} required>
+                                <option value={0}>Please select a location</option>
+                                {locations.map(item => (
+                                    <option key={item.id} value={item.id}>Id: {item.id}. Name: {item.name}</option>
+                                ))}
+                            </select>
+                        </label>
+                    </fieldset>
+                </form>
 
-                    {/* {showPizzas && currentLocationHasPizzas && (
-                <div>
-                  <p className="mt-2">Following pizzas are available in your selected branch. Please select your pizzas</p>
-                  <ul className="nobullets">
-                    {pizzasWithCount.map((pizza, index) => (
-                      <li className="mt-4" key={pizza.id}>{pizza.name} : ${pizza.price} each
-                        <Button className="ml-2 mr-2" onClick={() => handleMinus(index)}>-</Button>
-                        <span>{pizza.count}</span>
-                        <Button className="ml-2 mr-2" onClick={() => handlePlus(index)}>+</Button></li>
-                    ))}
-                  </ul>
-
-                  <label>Total price of your order is:</label>
-                  <span className="ml-2">{totalCost}</span>
-                </div>
-              )} */}
-
-                    {/* {showPizzas && !currentLocationHasPizzas && (
-                <>
-                  <p className="alert alert-danger" role="alert">There are no pizzas available in your selected location.</p>
-                </>)} */}
-                </fieldset>
-            </form>
-
-            <table className="table">
+                <table className="table">
                     <thead>
                         <tr>
                             <th scope="col">Pizza Name</th>
@@ -179,25 +158,22 @@ export const ModifyMenu = () => {
                                 <td>${pizza.price}</td>
                                 <td><EditPizzaButton name={pizza.name} id={pizza.id} description={pizza.description} onEditPizza={onEditPizza} price={pizza.price} currentLocationId={Number(selectedLocation)} type="button" className="btn btn-primary">Edit</EditPizzaButton></td>
                                 <td><Button onClick={() => onDeletePizza(pizza.id)} type="button" className="btn btn-danger">Delete</Button></td>
-                                {/* <td><EditLocationButton name={location.name} id={location.id} address={location.address} onEditLocation={onEditLocation} type="button" className="btn btn-primary">Edit</EditLocationButton></td>
-                                <td><Button onClick={() => onDeleteLocation(location.id)} type="button" className="btn btn-danger">Delete</Button></td> */}
                             </tr>
                         ))}
-
                     </tbody>
                 </table>
 
-            <AddPizzaModal
-                show={showAddPizzaModal}
-                handleClose={handleCloseAddPizzaModal}
-                onAddPizza={onAddPizza}
-                locations={locations}
-                selectedLocation={Number(selectedLocation)}
-            />
+                <AddPizzaModal
+                    show={showAddPizzaModal}
+                    handleClose={handleCloseAddPizzaModal}
+                    onAddPizza={onAddPizza}
+                    locations={locations}
+                    selectedLocation={Number(selectedLocation)}
+                />
             </>)}
             <Button onClick={GoToAdminHome} type="button" className="btn btn-primary marginbottom mr-4">Back</Button>
             {!noLocationsStored && (
-            <Button onClick={handleShowAddPizzaModal} type="button" className="btn btn-primary marginbottom">Add a new Pizza</Button>
+                <Button onClick={handleShowAddPizzaModal} type="button" className="btn btn-primary marginbottom">Add a new Pizza</Button>
             )}
         </div>
     );

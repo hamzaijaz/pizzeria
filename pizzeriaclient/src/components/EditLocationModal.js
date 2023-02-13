@@ -15,12 +15,12 @@ export const EditLocationModal = ({
     const [loading, setLoading] = useState(false);
     const [success, setSuccess] = useState(false);
 
-    const [formValues, setValues] = useState({id: id, name: name, address: address});
+    const [formValues, setValues] = useState({ id: id, name: name, address: address });
 
     useEffect(() => {
         form.setFieldsValue({
-          locationName: name,
-          locationAddress: address,
+            locationName: name,
+            locationAddress: address,
         });
     }, [form, name, address]);
 
@@ -34,7 +34,6 @@ export const EditLocationModal = ({
                 // Code to be executed after 3 seconds
             }, 3000);
             setLoading(false);
-            //onAddLocation(values);
         } catch (err) {
             console.error(err);
             setLoading(false);
@@ -93,7 +92,6 @@ export const EditLocationModal = ({
                 )}
             </Modal>
         </>
-
     );
 };
 export default EditLocationModal;

@@ -13,19 +13,25 @@ export const AddPizzaModal = ({
     const [form] = Form.useForm();
     const [loading, setLoading] = useState(false);
     const [success, setSuccess] = useState(false);
+    //an array to keep record of locations selected to add new pizza
     const [checkboxValues, setCheckboxValues] = useState([]);
 
+    //When value of a checkbox changes, add or remove relevant location id from the array "checkboxValues"
     const handleCheckboxChange = (e) => {
         let checkedLocationId = Number(e.target.id);
+
+        //if locationId is already in the array, remove it. Otherwise add it to the array
         if (checkboxValues.includes(checkedLocationId)) {
             removeIdFormCheckedValues(checkedLocationId);
         }
 
+        //Add LocationID to array "checkboxValues"
         else {
             setCheckboxValues([...checkboxValues, checkedLocationId]);
         }
     };
 
+    //remove LocationId from "checkboxValues" array
     const removeIdFormCheckedValues = value => {
         setCheckboxValues(checkboxValues.filter(val => val !== value));
     };
@@ -34,6 +40,8 @@ export const AddPizzaModal = ({
         try {
             setLoading(true);
             const values = await form.validateFields();
+
+            //Atleast one location should be selected to add the pizza
             if (checkboxValues.length === 0) {
                 alert("Please select atleeast one location in order to add pizza");
             }
@@ -46,7 +54,6 @@ export const AddPizzaModal = ({
                     // Code to be executed after 3 seconds
                 }, 3000);
                 setLoading(false);
-                //onAddPizza(values);
             }
         } catch (err) {
             console.error(err);
@@ -113,6 +120,8 @@ export const AddPizzaModal = ({
                         <Input />
                     </Form.Item>
 
+                    <div className="mb-3">Please select locations in which you want to make this pizza available:</div>
+
                     {locations.map((item, index) => (
                         <Form.Item
                             name={item.id}
@@ -131,28 +140,12 @@ export const AddPizzaModal = ({
                                 onChange={handleCheckboxChange}></Checkbox>
                         </Form.Item>
                     ))}
-
-
-                    {/* <Form.Item name="options" rules={[{ required: true, message: 'Please select at least one option' }]}>
-                        <Checkbox.Group options={locations} />
-                      </Form.Item> */}
-
-                    {/* <Checkbox.Group options={locations.map((item) => item.name)} render={(option) => (
-                            <React.Fragment>
-                                <Checkbox value={option.value}>{option.value}</Checkbox>
-                                <div style={{ marginLeft: 8 }}>{option.name}</div>
-                            </React.Fragment>
-                        )}/> */}
-
-
-
                 </Form>
                 {success && (
                     <p style={{ color: 'green' }}>Pizza added successfully</p>
                 )}
             </Modal>
         </>
-
     );
 };
 export default AddPizzaModal;

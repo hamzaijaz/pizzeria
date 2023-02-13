@@ -9,10 +9,11 @@ import Footer from "./components/Footer";
 import AdminHome from "./pages/admin/AdminHome";
 import ModifyLocations from "./pages/admin/ModifyLocations";
 import ModifyMenu from "./pages/admin/ModifyMenu";
+import image from "./images/PizzaPhoto.jpg";
 
 function App() {
   return (
-    <div className="button-container-div mt-4">
+    <div style={{ backgroundImage: `url(${image})`, width: '100vw', height:'100vw'}} className="button-container-div">
       <Switch>
         <Route exact path="/" component={Home} />
         <Route path="/neworder" component={NewOrder} />

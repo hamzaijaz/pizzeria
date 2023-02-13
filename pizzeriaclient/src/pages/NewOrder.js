@@ -20,6 +20,7 @@ export const NewOrder = () => {
 
   const [totalCost, setTotalCost] = useState(0);
 
+  //Fetch all locations from server when this page is loaded first time
   useEffect(() => {
     async function getAllLocations() {
       let response = await authorisedClient.get(
@@ -44,6 +45,7 @@ export const NewOrder = () => {
 
     else {
       setShowItem(true);
+      //get all pizzas available at this location
       let response = await authorisedClient.get(
         `Pizza/pizzasforlocation/${e.target.value}`
       );
@@ -61,6 +63,7 @@ export const NewOrder = () => {
     }
   };
 
+  //when plus button is clicked, increase count of that pizza and update total cost of order
   const handlePlus = (index) => {
     var newPizzaCount = [...pizzasWithCount];
     newPizzaCount[index].count++;
@@ -68,6 +71,7 @@ export const NewOrder = () => {
     calculateTotalCost();
   };
 
+    //when minus button is clicked, decrease count of that pizza and update total cost of order
   const handleMinus = (index) => {
     if (pizzasWithCount[index].count > 0) {
       var newPizzaCount = [...pizzasWithCount];
@@ -77,13 +81,14 @@ export const NewOrder = () => {
     }
   };
 
+  //this method calculates total cost of the order, depending on pizza prices and their counts
   const calculateTotalCost = () => {
     var cost = pizzasWithCount.reduce((acc, p) => acc + (p.price * p.count), 0);
     setTotalCost(cost);
   }
 
   return (
-    <div>
+    <div className="pt-5">
       {noLocationsStored && (
         <>
           <div className="alert alert-danger" role="alert">
@@ -114,14 +119,30 @@ export const NewOrder = () => {
               {showPizzas && currentLocationHasPizzas && (
                 <div>
                   <p className="mt-2">Following pizzas are available in your selected branch. Please select your pizzas</p>
-                  <ul className="nobullets">
-                    {pizzasWithCount.map((pizza, index) => (
-                      <li className="mt-4" key={pizza.id}>{pizza.name} <i>({pizza.description})</i> : ${pizza.price} each
-                        <Button className="ml-2 mr-2" onClick={() => handleMinus(index)}>-</Button>
-                        <span>{pizza.count}</span>
-                        <Button className="ml-2 mr-2" onClick={() => handlePlus(index)}>+</Button></li>
-                    ))}
-                  </ul>
+
+                  <table className="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">Pizza Name</th>
+                        <th className="text-left" scope="col">Pizza Description</th>
+                        <th scope="col">$ Price each</th>
+                        <th scope="col"></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {pizzasWithCount.map((pizza, index) => (
+                        <tr key={pizza.id}>
+                          <td>{pizza.name}</td>
+                          <td className="text-left col-3"><i>{pizza.description}</i></td>
+                          <td>${pizza.price}</td>
+                          <td><Button className="ml-2 mr-2 pl-3 pr-3" onClick={() => handleMinus(index)}>-</Button>
+                            <span>{pizza.count}</span>
+                            <Button className="ml-2 mr-2 pl-3 pr-3" onClick={() => handlePlus(index)}>+</Button></td>
+                        </tr>
+                      ))}
+
+                    </tbody>
+                  </table>
 
                   <label>Total price of your order is:</label>
                   <span className="ml-2">{totalCost}</span>
