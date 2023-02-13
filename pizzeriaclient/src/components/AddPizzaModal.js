@@ -34,7 +34,8 @@ export const AddPizzaModal = ({
         try {
             setLoading(true);
             const values = await form.validateFields();
-            //await onAddPizza(values);
+            var details = {name: values.name, description: values.description, price: values.price, locationIds: checkboxValues};
+            await onAddPizza(details);
             setSuccess(true);
             setTimeout(() => {
                 // Code to be executed after 3 seconds

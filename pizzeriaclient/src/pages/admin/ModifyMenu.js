@@ -24,7 +24,9 @@ export const ModifyMenu = () => {
             "Admin/pizza",
             {
                 Name: pizzaDetails.name,
-                Description: pizzaDetails.description
+                Description: pizzaDetails.description,
+                Price: pizzaDetails.price,
+                locationIds: pizzaDetails.locationIds
             }
         );
 
