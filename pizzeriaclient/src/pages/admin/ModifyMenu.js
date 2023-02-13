@@ -120,6 +120,11 @@ export const ModifyMenu = () => {
             <p>This is modify menu page</p>
             <p>You can add new pizzas here</p>
 
+            {noLocationsStored && (<>
+                <p className="alert alert-danger" role="alert">Currently there are no active locations of Pizzeria. Please add a new location before adding a new pizza</p>
+            </>)}
+
+            {!noLocationsStored && (<>
             <form>
                 <fieldset>
                     <label>
@@ -189,8 +194,11 @@ export const ModifyMenu = () => {
                 locations={locations}
                 selectedLocation={Number(selectedLocation)}
             />
+            </>)}
             <Button onClick={GoToAdminHome} type="button" className="btn btn-primary marginbottom mr-4">Back</Button>
+            {!noLocationsStored && (
             <Button onClick={handleShowAddPizzaModal} type="button" className="btn btn-primary marginbottom">Add a new Pizza</Button>
+            )}
         </div>
     );
 }
