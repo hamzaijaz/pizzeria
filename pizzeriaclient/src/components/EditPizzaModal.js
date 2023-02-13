@@ -25,7 +25,7 @@ export const EditPizzaModal = ({
             pizzaDescription: description,
             pizzaPrice: price
         });
-    }, [form, name, description]);
+    }, [form, name, description, price]);
 
     const handleSubmit = async () => {
         try {

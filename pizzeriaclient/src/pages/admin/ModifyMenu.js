@@ -133,7 +133,7 @@ export const ModifyMenu = () => {
                             <select className="ml-2 stylish-dropdown" value={selectedLocation} name="location" id="location" onChange={handleLocationChange} required>
                                 <option value={0}>Please select a location</option>
                                 {locations.map(item => (
-                                    <option key={item.id} value={item.id}>Id: {item.id}. Name: {item.name}</option>
+                                    <option key={item.id} value={item.id}>{item.name}</option>
                                 ))}
                             </select>
                         </label>

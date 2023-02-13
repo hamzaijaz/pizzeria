@@ -117,7 +117,7 @@ export const AddPizzaModal = ({
                             },
                         ]}
                     >
-                        <Input />
+                        <Input type="number" />
                     </Form.Item>
 
                     <div className="mb-3">Please select locations in which you want to make this pizza available:</div>
