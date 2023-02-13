@@ -41,20 +41,6 @@ namespace pizzeriaserver.Controllers
             return resp;
         }
 
-        [HttpPut]
-        public async Task<PizzaDto> UpdatePizza(PizzaDto pizza)
-        {
-            var resp = await _mediator.Send(new UpdatePizzaCommand()
-            {
-                Id = pizza.Id,
-                Name = pizza.Name,
-                Description = pizza.Description,
-                Price = pizza.Price
-            });
-
-            return resp;
-        }
-
         [HttpDelete]
         public async Task<int> DeletePizza(int pizzaId)
         {

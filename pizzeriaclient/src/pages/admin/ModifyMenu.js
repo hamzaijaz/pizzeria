@@ -3,6 +3,8 @@ import { useHistory } from 'react-router-dom';
 import React, { useState, useEffect } from "react";
 import AddPizzaModal from "../../components/AddPizzaModal";
 import authorisedClient from "../../common/authorised-axios";
+import EditPizzaModal from "../../components/EditPizzaModal";
+import EditPizzaButton from "../../components/EditPizzaButton";
 
 export const ModifyMenu = () => {
     const [locations, setLocations] = useState([]);
@@ -10,7 +12,11 @@ export const ModifyMenu = () => {
     const history = useHistory();
     const GoToAdminHome = () => {
         history.push('/adminhome');
-    }
+    };
+
+    const [showAddPizzaModal, setShowAddPizzaModal] = useState(false);
+    const handleCloseAddPizzaModal = () => { setShowAddPizzaModal(false); };
+    const handleShowAddPizzaModal = () => { setShowAddPizzaModal(true); }
 
     const [selectedLocation, setSelectedLocation] = useState(0);
     const [showPizzas, setShowItem] = useState(false);
@@ -37,11 +43,31 @@ export const ModifyMenu = () => {
 
         // Close the modal after successfully adding the pizza
         setShowAddPizzaModal(false);
-    }
+    };
 
-    const [showAddPizzaModal, setShowAddPizzaModal] = useState(false);
-    const handleCloseAddPizzaModal = () => { setShowAddPizzaModal(false); };
-    const handleShowAddPizzaModal = () => { setShowAddPizzaModal(true); }
+    const onEditPizza = async (pizzaId, newPizzaName, newPizzaDescription, newPizzaPrice, locationId) => {
+        // Handle adding location to the server here
+        // ...
+        var resp = await authorisedClient.put(
+            "Admin/pizza",
+            {
+                Id: pizzaId,
+                Name: newPizzaName,
+                Description: newPizzaDescription,
+                Price: newPizzaPrice,
+                LocationId: locationId
+            }
+        );
+
+        if (resp.status === 200 || resp.status === 201) {
+            window.location.reload();
+            setShowAddPizzaModal(false);
+            alert("Pizza was successfully updated");
+        };
+
+        // Close the modal after successfully adding the location
+        setShowAddPizzaModal(false);
+    };
 
     useEffect(() => {
         async function getAllLocations() {
@@ -124,6 +150,7 @@ export const ModifyMenu = () => {
                     <thead>
                         <tr>
                             <th scope="col">Pizza Name</th>
+                            <th className="text-left" scope="col">Pizza Description</th>
                             <th scope="col">Price</th>
                             <th scope="col"></th>
                             <th scope="col"></th>
@@ -133,8 +160,9 @@ export const ModifyMenu = () => {
                         {pizzas.map((pizza, index) => (
                             <tr key={pizza.id}>
                                 <td>{pizza.name}</td>
+                                <td className="text-left col-3">{pizza.description}</td>
                                 <td>${pizza.price}</td>
-                                <td><Button>Edit</Button></td>
+                                <td><EditPizzaButton name={pizza.name} id={pizza.id} description={pizza.description} onEditPizza={onEditPizza} price={pizza.price} currentLocationId={Number(selectedLocation)} type="button" className="btn btn-primary">Edit</EditPizzaButton></td>
                                 <td><Button className="btn btn-danger">Delete</Button></td>
                                 {/* <td><EditLocationButton name={location.name} id={location.id} address={location.address} onEditLocation={onEditLocation} type="button" className="btn btn-primary">Edit</EditLocationButton></td>
                                 <td><Button onClick={() => onDeleteLocation(location.id)} type="button" className="btn btn-danger">Delete</Button></td> */}

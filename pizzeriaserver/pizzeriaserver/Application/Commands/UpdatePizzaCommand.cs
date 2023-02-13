@@ -14,7 +14,7 @@ namespace pizzeriaserver.Application.Commands
         public string Name { get; set; }
         public string Description { get; set; }
         public decimal Price { get; set; }
-        public string Location { get; set; }
+        public int LocationId { get; set; }
 
         public class UpdatePizzaCommandHandler : IRequestHandler<UpdatePizzaCommand, PizzaDto>
         {
@@ -29,12 +29,13 @@ namespace pizzeriaserver.Application.Commands
 
             public async Task<PizzaDto> Handle(UpdatePizzaCommand command, CancellationToken cancellationToken)
             {
-                var pizza = new PizzaDto()
+                var pizza = new UpdatePizzaDto()
                 {
                     Id = command.Id,
                     Name = command.Name,
                     Description = command.Description,
-                    Price = command.Price
+                    Price = command.Price,
+                    LocationId = command.LocationId,
                 };
 
                 return await _pizzaRepository.UpdatePizzaAsync(pizza);

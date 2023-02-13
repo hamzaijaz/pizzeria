@@ -87,7 +87,7 @@ namespace pizzeriaserver.Repositories
             return response;
         }
 
-        public async Task<PizzaDto> UpdatePizzaAsync(PizzaDto pizzaDetails)
+        public async Task<PizzaDto> UpdatePizzaAsync(UpdatePizzaDto pizzaDetails)
         {
             var pizzaToUpdate = await _dbContext.Pizzas.Where(p => p.Id == pizzaDetails.Id).FirstOrDefaultAsync();
             if(pizzaToUpdate == null)
@@ -97,6 +97,14 @@ namespace pizzeriaserver.Repositories
 
             pizzaToUpdate.Name= pizzaDetails.Name;
             pizzaToUpdate.Description= pizzaDetails.Description;
+
+            var pizzaLocationToUpdate = await _dbContext.PizzaLocations.Where(pl => pl.PizzaId == pizzaDetails.Id && pl.LocationId == pizzaDetails.LocationId).FirstOrDefaultAsync();
+            if (pizzaToUpdate == null)
+            {
+                throw new NotFoundException(nameof(PizzaLocation), pizzaDetails.LocationId);
+            }
+
+            pizzaLocationToUpdate.Price = pizzaDetails.Price;
 
             await _dbContext.SaveChangesAsync();
 
