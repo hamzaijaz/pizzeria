@@ -123,25 +123,28 @@ export const AddPizzaModal = ({
 
                     <div className="mb-3">Please select locations in which you want to make this pizza available:</div>
 
+                    <div className="grid">
                         {locations.map((item, index) => (
-                            <Form.Item
-                            className="m-2"
-                                name={item.id}
-                                label={item.name}
-                                valuePropName="checked"
-                                rules={[
-                                    {
-                                        required: false,
-                                        message: 'Please enter pizza price',
-                                    },
-                                ]}
-                            >
-                                    <Checkbox className="mr-3"
+                            <div className="grid-item">
+                                <Form.Item
+                                    name={item.id}
+                                    label={item.name}
+                                    valuePropName="checked"
+                                    rules={[
+                                        {
+                                            required: false,
+                                            message: 'Please enter pizza price',
+                                        },
+                                    ]}
+                                >
+                                    <Checkbox
                                         key={item.id}
                                         // defaultChecked={item.id === selectedLocation}
                                         onChange={handleCheckboxChange}></Checkbox>
-                            </Form.Item>
+                                </Form.Item>
+                            </div>
                         ))}
+                    </div>
                 </Form>
                 {success && (
                     <p style={{ color: 'green' }}>Pizza added successfully</p>

@@ -130,6 +130,16 @@
   cursor: pointer;
 }
 
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-gap: 9px;
+}
+
+.grid-item {
+  text-align: left;
+}
+
 label {
   font-size: 18px;
   font-weight: 400;
