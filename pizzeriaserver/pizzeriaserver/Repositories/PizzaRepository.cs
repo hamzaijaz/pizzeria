@@ -37,15 +37,29 @@ namespace pizzeriaserver.Repositories
             return _mapper.Map<PizzaDto>(result.Entity);
         }
 
-        public async Task<int> DeletePizzaAsync(int id)
+        public async Task<int> DeletePizzaAsync(int pizzaId, int locationId)
         {
-            var pizzaToDelete = await _dbContext.Pizzas.Where(x => x.Id == id).FirstOrDefaultAsync();
+            var pizzaToDelete = await _dbContext.Pizzas.Where(x => x.Id == pizzaId).FirstOrDefaultAsync();
             if (pizzaToDelete == null)
             {
-                throw new NotFoundException(nameof(Pizza), id);
+                throw new NotFoundException(nameof(Pizza), pizzaId);
             }
 
-            _dbContext.Pizzas.Remove(pizzaToDelete);
+            var pizzaLocationToDelete = await _dbContext.PizzaLocations.FirstOrDefaultAsync(pl => pl.PizzaId == pizzaId && pl.LocationId == locationId);
+            if (pizzaLocationToDelete == null)
+            {
+                throw new NotFoundException(nameof(PizzaLocation), locationId);
+            }
+
+            //remove this pizza from pizza table if it is being removed even from the last location (it is not being served in any location)
+            var isThisPizzaOnlyInThisLocation = (await _dbContext.PizzaLocations.Where(pl => pl.PizzaId == pizzaId).CountAsync()) < 2;
+
+            _dbContext.PizzaLocations.Remove(pizzaLocationToDelete);
+            if (isThisPizzaOnlyInThisLocation)
+            {
+                _dbContext.Pizzas.Remove(pizzaToDelete);
+            }
+
             await _dbContext.SaveChangesAsync();
             return pizzaToDelete.Id;
         }

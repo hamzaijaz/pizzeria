@@ -8,6 +8,7 @@ namespace pizzeriaserver.Application.Commands
     public class DeletePizzaCommand : IRequest<int>
     {
         public int Id { get; set; }
+        public int PizzaLocationId { get; set; }
 
         public class DeletePizzaCommandHandler : IRequestHandler<DeletePizzaCommand, int>
         {
@@ -22,7 +23,7 @@ namespace pizzeriaserver.Application.Commands
 
             public async Task<int> Handle(DeletePizzaCommand command, CancellationToken cancellationToken)
             {
-                return await _pizzaRepository.DeletePizzaAsync(command.Id);
+                return await _pizzaRepository.DeletePizzaAsync(command.Id, command.PizzaLocationId);
             }
         }
     }
