@@ -34,14 +34,20 @@ export const AddPizzaModal = ({
         try {
             setLoading(true);
             const values = await form.validateFields();
-            var details = {name: values.name, description: values.description, price: values.price, locationIds: checkboxValues};
-            await onAddPizza(details);
-            setSuccess(true);
-            setTimeout(() => {
-                // Code to be executed after 3 seconds
-            }, 3000);
-            setLoading(false);
-            //onAddPizza(values);
+            if (checkboxValues.length === 0) {
+                alert("Please select atleeast one location in order to add pizza");
+            }
+
+            else {
+                var details = { name: values.name, description: values.description, price: values.price, locationIds: checkboxValues };
+                await onAddPizza(details);
+                setSuccess(true);
+                setTimeout(() => {
+                    // Code to be executed after 3 seconds
+                }, 3000);
+                setLoading(false);
+                //onAddPizza(values);
+            }
         } catch (err) {
             console.error(err);
             setLoading(false);
