@@ -22,7 +22,7 @@ namespace pizzeriaserver.Application.Validators
 
             RuleFor(v => v.LocationIds)
                 .NotNull().WithMessage("Locations list must not be null")
-                .NotEmpty().WithMessage("Please select atleast one locaiton");
+                .NotEmpty().WithMessage("Please select atleast one location");
         }
     }
 }

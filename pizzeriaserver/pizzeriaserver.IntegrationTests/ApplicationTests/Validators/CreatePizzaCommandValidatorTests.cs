@@ -151,7 +151,7 @@ namespace pizzeriaserver.IntegrationTests.ApplicationTests.Validators
 
             // Assert
             result.IsValid.Should().BeFalse();
-            result.Errors.Should().Contain(error => error.ErrorMessage == "Please select atleast one locaiton");
+            result.Errors.Should().Contain(error => error.ErrorMessage == "Please select atleast one location");
         }
 
         [Fact]
