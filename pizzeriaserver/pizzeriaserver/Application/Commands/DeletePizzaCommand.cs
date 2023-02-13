@@ -12,18 +12,17 @@ namespace pizzeriaserver.Application.Commands
 
         public class DeletePizzaCommandHandler : IRequestHandler<DeletePizzaCommand, int>
         {
-            private readonly IPizzaRepository _pizzaRepository;
+            private readonly IAdminRepository _adminRepository;
 
-            public DeletePizzaCommandHandler(IPizzaRepository pizzaRepository)
+            public DeletePizzaCommandHandler(IAdminRepository adminRepository)
             {
-                Guard.Against.Null(pizzaRepository, nameof(pizzaRepository));
-
-                _pizzaRepository = pizzaRepository;
+                Guard.Against.Null(adminRepository, nameof(adminRepository));
+                _adminRepository = adminRepository;
             }
 
             public async Task<int> Handle(DeletePizzaCommand command, CancellationToken cancellationToken)
             {
-                return await _pizzaRepository.DeletePizzaAsync(command.Id, command.PizzaLocationId);
+                return await _adminRepository.DeletePizzaAsync(command.Id, command.PizzaLocationId);
             }
         }
     }

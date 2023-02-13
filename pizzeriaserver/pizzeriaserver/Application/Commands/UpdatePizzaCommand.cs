@@ -1,10 +1,7 @@
 ﻿using Ardalis.GuardClauses;
-using AutoMapper;
 using MediatR;
-using pizzeriaserver.Application.Common.Interfaces;
 using pizzeriaserver.Application.Models;
 using pizzeriaserver.Repositories;
-using System;
 
 namespace pizzeriaserver.Application.Commands
 {
@@ -18,13 +15,13 @@ namespace pizzeriaserver.Application.Commands
 
         public class UpdatePizzaCommandHandler : IRequestHandler<UpdatePizzaCommand, PizzaDto>
         {
-            private readonly IPizzaRepository _pizzaRepository;
+            private readonly IAdminRepository _adminRepository;
 
-            public UpdatePizzaCommandHandler(IPizzaRepository pizzaRepository)
+            public UpdatePizzaCommandHandler(IAdminRepository adminRepository)
             {
-                Guard.Against.Null(pizzaRepository, nameof(pizzaRepository));
+                Guard.Against.Null(adminRepository, nameof(adminRepository));
 
-                _pizzaRepository = pizzaRepository;
+                _adminRepository = adminRepository;
             }
 
             public async Task<PizzaDto> Handle(UpdatePizzaCommand command, CancellationToken cancellationToken)
@@ -38,7 +35,7 @@ namespace pizzeriaserver.Application.Commands
                     LocationId = command.LocationId,
                 };
 
-                return await _pizzaRepository.UpdatePizzaAsync(pizza);
+                return await _adminRepository.UpdatePizzaAsync(pizza);
             }
         }
     }

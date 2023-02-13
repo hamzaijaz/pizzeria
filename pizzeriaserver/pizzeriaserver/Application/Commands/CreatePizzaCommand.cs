@@ -14,12 +14,12 @@ namespace pizzeriaserver.Application.Commands
 
         public class CreatePizzaCommandHandler : IRequestHandler<CreatePizzaCommand, PizzaDto>
         {
-            private readonly IPizzaRepository _pizzaRepository;
+            private readonly IAdminRepository _adminRepository;
 
-            public CreatePizzaCommandHandler(IPizzaRepository pizzaRepository)
+            public CreatePizzaCommandHandler(IAdminRepository adminRepository)
             {
-                Guard.Against.Null(pizzaRepository, nameof(pizzaRepository));
-                _pizzaRepository = pizzaRepository;
+                Guard.Against.Null(adminRepository, nameof(adminRepository));
+                _adminRepository = adminRepository;
             }
 
             public async Task<PizzaDto> Handle(CreatePizzaCommand command, CancellationToken cancellation)
@@ -32,7 +32,7 @@ namespace pizzeriaserver.Application.Commands
                     LocationIds = command.LocationIds,
                 };
 
-                return await _pizzaRepository.AddPizzaAsync(pizza);
+                return await _adminRepository.AddPizzaAsync(pizza);
             }
         }
     }

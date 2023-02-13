@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
-import { Modal, Form, Input, Checkbox } from 'antd';
+import { Modal, Form, Input, Checkbox, Col, Row } from 'antd';
 
 export const AddPizzaModal = ({
     show,
@@ -122,24 +122,28 @@ export const AddPizzaModal = ({
 
                     <div className="mb-3">Please select locations in which you want to make this pizza available:</div>
 
-                    {locations.map((item, index) => (
-                        <Form.Item
-                            name={item.id}
-                            label={item.name}
-                            valuePropName="checked"
-                            rules={[
-                                {
-                                    required: false,
-                                    message: 'Please enter pizza price',
-                                },
-                            ]}
-                        >
-                            <Checkbox
-                                key={item.id}
-                                defaultChecked={item.id === selectedLocation}
-                                onChange={handleCheckboxChange}></Checkbox>
-                        </Form.Item>
-                    ))}
+                    <Row>
+                        {locations.map((item, index) => (
+                            <Form.Item
+                            className="m-2"
+                                name={item.id}
+                                label={item.name}
+                                valuePropName="checked"
+                                rules={[
+                                    {
+                                        required: false,
+                                        message: 'Please enter pizza price',
+                                    },
+                                ]}
+                            >
+                                <Col span={12 / 2} key={index}>
+                                    <Checkbox className="mr-3"
+                                        key={item.id}
+                                        defaultChecked={item.id === selectedLocation}
+                                        onChange={handleCheckboxChange}></Checkbox></Col>
+                            </Form.Item>
+                        ))}
+                    </Row>
                 </Form>
                 {success && (
                     <p style={{ color: 'green' }}>Pizza added successfully</p>
