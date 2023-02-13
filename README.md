@@ -12,7 +12,7 @@ Design patterns used:
 * Clean code architecture
 
 ### How to run Pizzeria on your machine?
-####Back-end:
+#### Back-end:
 Prerequisite software
 * Visual Studio
 * MS SQL Server Management Studio
@@ -29,7 +29,7 @@ This should create schema and apply all migrations to your database. You can ver
 You should see Swagger UI page open in your browser on ```localhost:7213```
 If you have seen this, it is good news!
 
-####Front-end:
+#### Front-end:
 Prerequisite software installation
 * NodeJS
 * npm
