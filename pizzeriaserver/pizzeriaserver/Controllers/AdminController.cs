@@ -122,5 +122,40 @@ namespace pizzeriaserver.Controllers
 
             return resp;
         }
+
+        //Toppings
+        [HttpPost]
+        public async Task<ToppingDto> AddNewTopping(ToppingDto topping)
+        {
+            var resp = await _mediator.Send(new CreateToppingCommand()
+            {
+                Name = topping.Name
+            });
+
+            return resp;
+        }
+
+        [HttpPut]
+        public async Task<ToppingDto> UpdateTopping(ToppingDto topping)
+        {
+            var resp = await _mediator.Send(new UpdateToppingCommand()
+            {
+                Id = topping.Id,
+                Name = topping.Name
+            });
+
+            return resp;
+        }
+
+        [HttpDelete]
+        public async Task<int> DeleteTopping(int toppingId)
+        {
+            var resp = await _mediator.Send(new DeleteToppingCommand()
+            {
+                Id = toppingId
+            });
+
+            return resp;
+        }
     }
 }
