@@ -46,7 +46,9 @@ namespace pizzeriaserver.Controllers
             var resp = await _mediator.Send(new CreatePizzaCommand()
             {
                 Name = pizza.Name,
-                Description = pizza.Description
+                Description = pizza.Description,
+                Price = pizza.Price,
+                LocationIds = pizza.LocationIds
             });
 
             return resp;

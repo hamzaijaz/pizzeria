@@ -22,10 +22,17 @@ namespace pizzeriaserver.Repositories
             _mapper = mapper;
         }
 
-        public async Task<PizzaDto> AddPizzaAsync(PizzaDto pizzaDetails)
+        public async Task<PizzaDto> AddPizzaAsync(AddPizzaDto pizzaDetails)
         {
             var pizza = _mapper.Map<Pizza>(pizzaDetails);
             var result = _dbContext.Pizzas.Add(pizza);
+            await _dbContext.SaveChangesAsync();
+
+            var pizzaLocation = pizzaDetails.LocationIds;
+            foreach(var locationId in pizzaLocation) 
+            {
+                _dbContext.PizzaLocations.Add(new PizzaLocation { PizzaId = result.Entity.Id, LocationId = locationId, Price = pizzaDetails.Price });
+            }
             await _dbContext.SaveChangesAsync();
             return _mapper.Map<PizzaDto>(result.Entity);
         }

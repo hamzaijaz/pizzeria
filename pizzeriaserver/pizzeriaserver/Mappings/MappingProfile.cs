@@ -14,6 +14,11 @@ namespace pizzeriaserver.Mappings
                 .ForMember(x => x.Id, s => s.MapFrom(source => source.Id))
                 .ReverseMap();
 
+            CreateMap<AddPizzaDto, Pizza>()
+                .ForMember(x => x.Name, s => s.MapFrom(source => source.Name))
+                .ForMember(x => x.Description, s => s.MapFrom(source => source.Description))
+                .ReverseMap();
+
             CreateMap<ToppingDto, Topping>()
                 .ForMember(x => x.Name, s => s.MapFrom(source => source.Name))
                 .ForMember(x => x.Id, s => s.MapFrom(source => source.Id))

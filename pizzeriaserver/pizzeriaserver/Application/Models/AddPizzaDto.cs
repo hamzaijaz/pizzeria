@@ -1,6 +1,6 @@
-﻿namespace pizzeriaserver.Controllers.Requests
+﻿namespace pizzeriaserver.Application.Models
 {
-    public class AddNewPizzaRequest
+    public class AddPizzaDto
     {
         public string Name { get; set; }
         public string Description { get; set; }
