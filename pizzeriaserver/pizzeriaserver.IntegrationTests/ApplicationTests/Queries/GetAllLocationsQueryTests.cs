@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using AutoFixture;
+using FluentAssertions;
 using Moq;
 using pizzeriaserver.Application.Models;
 using pizzeriaserver.Application.Queries;
@@ -10,24 +11,30 @@ namespace pizzeriaserver.IntegrationTests.ApplicationTests.Queries
     [Collection("Tests")] // XUnit Requirement
     public class GetAllLocationsQueryTests
     {
-        public GetAllLocationsQueryTests() { }
+        private readonly IFixture _fixture;
+        public GetAllLocationsQueryTests() 
+        {
+            _fixture = new Fixture();
+        }
 
         [Fact]
         public async Task GetAllLocationsQuery_ShouldReturnAllLocations()
         {
             // Arrange
-            var locations = new List<Location>
-            {
-                new Location { Id = 1, Name = "Location 1", Address = "Address 1" },
-                new Location { Id = 2, Name = "Location 2", Address = "Address 2" }
-            };
+            var fixtureLocations = _fixture.Create<List<LocationDto>>();
 
-            var locationDtos = locations.Select(x => new LocationDto { Id = x.Id, Name = x.Name, Address = x.Address }).ToList();
+            //var locations = new List<Location>
+            //{
+            //    new Location { Id = 1, Name = "Location 1", Address = "Address 1" },
+            //    new Location { Id = 2, Name = "Location 2", Address = "Address 2" }
+            //};
+
+            //var locationDtos = locations.Select(x => new LocationDto { Id = x.Id, Name = x.Name, Address = x.Address }).ToList();
 
             var mockAdminRepository = new Mock<IAdminRepository>();
             mockAdminRepository
                 .SetupSequence(x => x.GetAllLocationsAsync())
-                .ReturnsAsync(locationDtos);
+                .ReturnsAsync(fixtureLocations);
 
             var handler = new GetAllLocationsQuery.GetAllLocationsHandler(mockAdminRepository.Object);
 
@@ -35,14 +42,15 @@ namespace pizzeriaserver.IntegrationTests.ApplicationTests.Queries
             var result = await handler.Handle(new GetAllLocationsQuery(), CancellationToken.None);
 
             // Assert
-            result.Should().BeEquivalentTo(locationDtos);
-            result.Count.Should().Be(2);
-            result[0].Id.Should().Be(1);
-            result[0].Name.Should().Be("Location 1");
-            result[0].Address.Should().Be("Address 1");
-            result[1].Id.Should().Be(2);
-            result[1].Name.Should().Be("Location 2");
-            result[1].Address.Should().Be("Address 2");
+            result.Should().BeEquivalentTo(fixtureLocations);
+            result.Count.Should().Be(fixtureLocations.Count);
+
+            for (int i = 0; i < result.Count; i++)
+            {
+                result[i].Id.Should().Be(fixtureLocations[i].Id);
+                result[i].Address.Should().Be(fixtureLocations[i].Address);
+                result[i].Name.Should().Be(fixtureLocations[i].Name);
+            }
         }
 
         [Fact]
@@ -50,7 +58,6 @@ namespace pizzeriaserver.IntegrationTests.ApplicationTests.Queries
         {
             // Arrange
             var locations = new List<Location>();
-
             var locationDtos = locations.Select(x => new LocationDto { Id = x.Id, Name = x.Name, Address = x.Address }).ToList();
 
             var mockAdminRepository = new Mock<IAdminRepository>();
