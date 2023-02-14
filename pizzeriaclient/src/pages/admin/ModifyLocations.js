@@ -5,6 +5,7 @@ import { useHistory } from 'react-router-dom';
 import AddLocationModal from "../../components/AddLocationModal";
 import EditLocationModal from "../../components/EditLocationModal";
 import EditLocationButton from "../../components/EditLocationButton";
+import NavBar from "../../components/NavBar";
 
 export const ModifyLocations = () => {
 
@@ -97,6 +98,7 @@ export const ModifyLocations = () => {
 
     return (
         <div>
+            <NavBar/>
             <p className="pt-3">This is Modify Locations page</p>
 
             {noLocationsStored && (<>

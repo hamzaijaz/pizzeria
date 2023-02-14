@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import AddPizzaModal from "../../components/AddPizzaModal";
 import authorisedClient from "../../common/authorised-axios";
 import EditPizzaButton from "../../components/EditPizzaButton";
+import NavBar from "../../components/NavBar";
 
 export const ModifyMenu = () => {
     const [locations, setLocations] = useState([]);
@@ -118,6 +119,7 @@ export const ModifyMenu = () => {
 
     return (
         <div>
+            <NavBar/>
             <p className="pt-3">This is modify menu page</p>
             <p>You can add new pizzas here</p>
 

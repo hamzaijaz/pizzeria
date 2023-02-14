@@ -13,7 +13,13 @@ import image from "./images/PizzaPhoto.jpg";
 
 function App() {
   return (
-    <div style={{ backgroundImage: `url(${image})`, width: '100vw', height:'100vw'}} className="button-container-div">
+    <div style={{
+      backgroundImage: `url(${image})`,
+      backgroundPosition: 'center',
+      backgroundSize: 'cover',
+      width: '100vw',
+      height: '100vh'
+    }} className="button-container-div">
       <Switch>
         <Route exact path="/" component={Home} />
         <Route path="/neworder" component={NewOrder} />
@@ -22,7 +28,7 @@ function App() {
         <Route path="/adminmodifymenu" component={ModifyMenu} />
         <Route component={NotFoundPage} />
       </Switch>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }

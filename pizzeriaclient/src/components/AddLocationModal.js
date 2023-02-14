@@ -34,6 +34,7 @@ export const AddLocationModal = ({
                 open={show}
                 title="Add New Location"
                 onCancel={handleClose}
+                centered
                 footer={[
                     <Button key="back" onClick={handleClose}>
                         Cancel
