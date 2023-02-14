@@ -71,7 +71,7 @@ export const NewOrder = () => {
     calculateTotalCost();
   };
 
-    //when minus button is clicked, decrease count of that pizza and update total cost of order
+  //when minus button is clicked, decrease count of that pizza and update total cost of order
   const handleMinus = (index) => {
     if (pizzasWithCount[index].count > 0) {
       var newPizzaCount = [...pizzasWithCount];
@@ -145,7 +145,7 @@ export const NewOrder = () => {
                   </table>
 
                   <label>Total price of your order is:</label>
-                  <span className="ml-2">{totalCost}</span>
+                  <span className="ml-2">${totalCost}</span>
                 </div>
               )}
 
