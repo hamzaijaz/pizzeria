@@ -13,22 +13,28 @@ namespace pizzeriaserver.Application.Commands
         public class CreateLocationCommandHandler : IRequestHandler<CreateLocationCommand, LocationDto>
         {
             private readonly IAdminRepository _adminRepository;
+            private readonly ILogger<CreateLocationCommand> _logger;
 
-            public CreateLocationCommandHandler(IAdminRepository adminRepository)
+            public CreateLocationCommandHandler(IAdminRepository adminRepository, ILogger<CreateLocationCommand> logger)
             {
                 Guard.Against.Null(adminRepository, nameof(adminRepository));
                 _adminRepository = adminRepository;
+                _logger = logger;
             }
 
             public async Task<LocationDto> Handle(CreateLocationCommand command, CancellationToken cancellation)
             {
+                _logger.LogInformation($"Start running CreateLocationCommand with Name = {command.Name}, Address = {command.Address}");
                 var location = new LocationDto()
                 {
                     Name = command.Name,
                     Address = command.Address
                 };
 
-                return await _adminRepository.AddLocationAsync(location);
+                var resp = await _adminRepository.AddLocationAsync(location);
+                _logger.LogInformation("Finish running CreateLocationCommand");
+
+                return resp;
             }
         }
     }

@@ -42,6 +42,7 @@ builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValida
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddTransient<IDateTime, DateTimeService>();
 builder.Services.AddDbContext <IApplicationDbContext, ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddLogging(builder => builder.AddConsole());
 builder.Services.AddScoped<IPizzaRepository, PizzaRepository>();
 builder.Services.AddScoped<IToppingRepository, ToppingRepository>();
 builder.Services.AddScoped<IAdminRepository, AdminRepository>();

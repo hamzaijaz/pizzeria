@@ -1,14 +1,10 @@
 ﻿using AutoFixture;
 using FluentAssertions;
+using Microsoft.Extensions.Logging;
 using Moq;
 using pizzeriaserver.Application.Commands;
 using pizzeriaserver.Application.Models;
 using pizzeriaserver.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace pizzeriaserver.IntegrationTests.ApplicationTests.Commands
 {
@@ -18,12 +14,14 @@ namespace pizzeriaserver.IntegrationTests.ApplicationTests.Commands
         private readonly IFixture _fixture;
         private readonly Mock<IAdminRepository> _mockAdminRepository;
         private readonly CreateLocationCommand.CreateLocationCommandHandler _handler;
+        private readonly Mock<ILogger<CreateLocationCommand>> _logger;
 
         public CreateLocationCommandTests()
         {
             _fixture = new Fixture();
             _mockAdminRepository = new Mock<IAdminRepository>();
-            _handler = new CreateLocationCommand.CreateLocationCommandHandler(_mockAdminRepository.Object);
+            _logger = new Mock<ILogger<CreateLocationCommand>>();
+            _handler = new CreateLocationCommand.CreateLocationCommandHandler(_mockAdminRepository.Object, _logger.Object);
         }
 
         [Fact]
