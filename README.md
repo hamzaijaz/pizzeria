@@ -1,17 +1,29 @@
 # Pizzeria
-A simple web application to manage pizzas and their prices in different locations of the restaurant <br />
+A simple web application to manage pizzas and their prices in different locations of the restaurant.
+When a user creates an order, the total price gets updated in real time on front end.
+
 Coded in .NET 6 and React <br />
-Technologies used:
+#### Technologies used:
 * .NET 6
+* C#
 * EntityFramework Core
+* FluentValidations
+* Mediator
+* AutoMapper
 * React
 
-Design patterns used:
-* CQRS
+#### Design patterns used:
+* CQRS pattern
+* Mediator pattern
 * Repository pattern
 * Clean code architecture
 <img width="287" alt="image" src="https://user-images.githubusercontent.com/33806340/218648571-c138df75-84e6-4af7-8b48-970c48529913.png">
 
+#### Testing 
+* Moq
+* xunit
+* AutoFixture
+* FluentAssertions
 
 ### How to run Pizzeria on your machine?
 #### Back-end:
@@ -39,6 +51,7 @@ You should see Swagger UI page open in your browser on ```localhost:7213```
 If you have seen this, it is good news!
 <img width="930" alt="image" src="https://user-images.githubusercontent.com/33806340/218599717-46171c89-c79c-4544-88f9-7aae8d05d3bc.png">
 
+The backend is a CQRS pattern, in which all events to fetch data from database are called "Queries", and events which add or update data in database are called "commands". When a request comes to the controller, a command or query is created. The request is also validated through validators. If it is valid, the command or query uses the repository methods to add, get, or modify data in the database and return to the controller.
 #### Front-end:
 Prerequisite software installation
 * NodeJS
