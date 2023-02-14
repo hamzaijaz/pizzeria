@@ -79,3 +79,17 @@ Start by select a location. Once a location is selected, the available pizzas in
 At bottom of this screen, you can see the ```total price of your order``` getting updated in real time.
 <img width="943" alt="image" src="https://user-images.githubusercontent.com/33806340/218652783-1c848ccb-a340-415d-97ef-99a678c0b7e2.png">
 
+#### Room for improvement
+As this is not a production ready application, and has been built with tight time constraint, there is room for improvement in this application.
+Following are some improvements which could be there if time constraint was not there:
+
+1. API authentication and authorization - (JWT)
+2. Logging information messages, warnings, and errors
+3. Captcha verification on front end and back end (you can see my captcha verification work in "[MyHealthSolutionBackend2 Repository](https://github.com/hamzaijaz/healthsolutionbackend2)"
+    * [ICaptchaVerifier.cs Interface](https://github.com/hamzaijaz/healthsolutionbackend2/blob/main/src/Application/Common/Interfaces/ICaptchaVerifier.cs)
+    * [CaptchaVerifier.cs](https://github.com/hamzaijaz/healthsolutionbackend2/blob/main/src/Infrastructure/Services/CaptchaVerifier.cs)
+    * Captcha Verifier being used in [CreatePatientCommand.cs](https://github.com/hamzaijaz/healthsolutionbackend2/blob/main/src/Application/Patients/Commands/CreatePatient/CreatePatientCommand.cs)
+4. Currently, I could add toppings functionality only in backend, and not on front end due to time constraint. But toppings can also be added in front end in future.
+5. As per the current project requirements, the task is just to display total price of the order to the customer. They cannot submit and place an order at the moment. But in future, order functionality can also be added.
+6. A separate admin portal can be added for admins in order to modify locations and pizza.
+7. Signup and login functionality can also be added. Roles can be assigned to users, and different features of website can be made available or hidden from them depending on their roles (e.g., Admin, Customer, SuperUser, etc).
