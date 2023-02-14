@@ -77,3 +77,5 @@ Once pizzas are added, go to home page (http://localhost:3000), and your can sta
 
 Start by select a location. Once a location is selected, the available pizzas in that location are shown, along with their description and prices. There are also ```-``` and ```+``` buttons in front of each pizza. You can use these buttons to add the number of pizzas to your order. 
 At bottom of this screen, you can see the ```total price of your order``` getting updated in real time.
+<img width="943" alt="image" src="https://user-images.githubusercontent.com/33806340/218652783-1c848ccb-a340-415d-97ef-99a678c0b7e2.png">
+
