@@ -1,5 +1,5 @@
 # Pizzeria
-A simple web application to manage pizzas and their prices in different locations of the restaurant.
+A simple web application (built on .NET 6 and React) to manage pizzas and their prices in different locations of the restaurant.
 When a user creates an order, the total price gets updated in real time on front end.
 
 Coded in .NET 6 and React <br />
