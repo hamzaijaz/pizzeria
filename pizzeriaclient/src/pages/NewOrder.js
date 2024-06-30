@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import authorisedClient from "../common/authorised-axios";
 import Button from "react-bootstrap/Button";
 import { useHistory } from 'react-router-dom';
+import { RotatingLines } from 'react-loader-spinner';
 
 export const NewOrder = () => {
   const history = useHistory();
@@ -9,6 +10,7 @@ export const NewOrder = () => {
   const cancelOrder = () => {
     history.push('/');
   }
+  const [isLoading, setIsLoading] = useState(true);
   const [locations, setLocations] = useState([]);
   const [noLocationsStored, setNoLocationsStored] = useState(false);
   const [currentLocationHasPizzas, setcurrentLocationHasPizzas] = useState(false);
@@ -23,9 +25,11 @@ export const NewOrder = () => {
   //Fetch all locations from server when this page is loaded first time
   useEffect(() => {
     async function getAllLocations() {
+      setIsLoading(true);
       let response = await authorisedClient.get(
         `Admin/location/all`
       );
+      setIsLoading(false);
 
       if (response.data.length === 0) {
         setNoLocationsStored(true)
@@ -45,10 +49,13 @@ export const NewOrder = () => {
 
     else {
       setShowItem(true);
+      setIsLoading(true);
       //get all pizzas available at this location
       let response = await authorisedClient.get(
         `Pizza/pizzasforlocation/${e.target.value}`
       );
+
+      setIsLoading(false);
 
       if (response.data.length > 0) {
         setcurrentLocationHasPizzas(true);
@@ -100,6 +107,18 @@ export const NewOrder = () => {
           </Button>
         </>
       )}
+
+      {isLoading && (<RotatingLines
+        visible={true}
+        height="408"
+        width="96"
+        color="grey"
+        strokeWidth="5"
+        animationDuration="0.75"
+        ariaLabel="rotating-lines-loading"
+        wrapperStyle={{}}
+        wrapperClass=""
+      />)}
 
       {locations !== null && locations.length > 0 && (
         <div>
