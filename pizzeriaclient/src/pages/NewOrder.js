@@ -154,9 +154,9 @@ export const NewOrder = () => {
                           <td>{pizza.name}</td>
                           <td className="text-left col-3"><i>{pizza.description}</i></td>
                           <td>${pizza.price}</td>
-                          <td><Button className="ml-2 mr-2 pl-3 pr-3" onClick={() => handleMinus(index)}>-</Button>
+                          <td><Button className="ml-2 mr-2 mt-2 mb-2 pl-3 pr-3" onClick={() => handleMinus(index)}>-</Button>
                             <span>{pizza.count}</span>
-                            <Button className="ml-2 mr-2 pl-3 pr-3" onClick={() => handlePlus(index)}>+</Button></td>
+                            <Button className="ml-2 mr-2 mt-2 mb-2 pl-3 pr-3" onClick={() => handlePlus(index)}>+</Button></td>
                         </tr>
                       ))}
 
