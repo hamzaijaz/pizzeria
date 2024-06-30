@@ -168,7 +168,7 @@ export const NewOrder = () => {
                 </div>
               )}
 
-              {showPizzas && !currentLocationHasPizzas && (
+              {showPizzas && !currentLocationHasPizzas && !isLoading && (
                 <>
                   <p className="alert alert-danger" role="alert">There are no pizzas available in your selected location.</p>
                 </>)}
