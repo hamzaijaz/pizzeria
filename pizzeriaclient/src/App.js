@@ -9,12 +9,12 @@ import Footer from "./components/Footer";
 import AdminHome from "./pages/admin/AdminHome";
 import ModifyLocations from "./pages/admin/ModifyLocations";
 import ModifyMenu from "./pages/admin/ModifyMenu";
-import image from "./images/PizzaPhoto.jpg";
+// import image from "./images/PizzaPhoto.jpg";
 
 function App() {
   return (
     <div style={{
-      backgroundImage: `url(${image})`,
+      //backgroundImage: `url(${image})`,
       backgroundPosition: 'center',
       backgroundSize: 'cover',
       width: '100vw',
